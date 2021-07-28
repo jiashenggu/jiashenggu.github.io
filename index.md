@@ -1,7 +1,7 @@
 ## Gu Jiasheng
 
 [Github](https://github.com/Sieg-Arash)
-
+[CV](./pdf/Jiasheng Gu.pdf)
 ### Markdown
 
 Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
