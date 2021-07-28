@@ -1,6 +1,6 @@
 ## Gu Jiasheng
 
-[Github](https://github.com/Sieg-Arash)
+[Github](https://github.com/jiashenggu)
 
 [CV](./pdf/Jiasheng Gu.pdf)
 
