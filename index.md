@@ -2,7 +2,7 @@
 
 [Github](https://github.com/jiashenggu)
 
-[CV](./pdf/Jiasheng Gu.pdf)
+[CV](./pdf/Jiasheng_Gu_Resume_.pdf)
 
 Email: gujiashe@usc.edu
 
