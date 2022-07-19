@@ -3,6 +3,7 @@
 [Github](https://github.com/jiashenggu)
 
 [SDE_CV](./pdf/Jiasheng_Gu_Resume_SDE.pdf)
+
 [MLE_CV](./pdf/Jiasheng_Gu_Resume_MLE.pdf)
 
 Email: gujiashe@usc.edu
