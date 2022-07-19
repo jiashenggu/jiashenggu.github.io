@@ -21,7 +21,7 @@ B.S. in Telecommunication Engineering, Xidian University, Sept. 2017 - June 2021
 
 
 #### Completing Wikidata with Language Models                                                        
-Starting in January of 2022, I worked with [FILIP ILIEVSKI](https://usc-isi-i2.github.io/ilievski/). I utilized language models to complete Wikidata and benefit downstream tasks.
+Starting in January of 2022, I worked with [Filip Ilievski](https://usc-isi-i2.github.io/ilievski/). I utilized language models to complete Wikidata and benefit downstream tasks.
 
 ## Undergraduate Research
 
