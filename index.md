@@ -2,7 +2,8 @@
 
 [Github](https://github.com/jiashenggu)
 
-[CV](./pdf/Jiasheng Gu.pdf)
+[SDE_CV](./pdf/Jiasheng_Gu_Resume_SDE.pdf)
+[MLE_CV](./pdf/Jiasheng_Gu_Resume_MLE.pdf)
 
 Email: gujiashe@usc.edu
 
@@ -14,6 +15,12 @@ I am an graduate student at USC, majoring in Computer Engineering. My interest f
 M.S. in Computer Engineering, University of Southern California , Aug 2021 - .
 
 B.S. in Telecommunication Engineering, Xidian University, Sept. 2017 - June 2021.
+
+## Graduate Research
+
+
+#### Completing Wikidata with Language Models                                                        
+Starting in January of 2022, I worked with [FILIP ILIEVSKI](https://usc-isi-i2.github.io/ilievski/). I utilized language models to complete Wikidata and benefit downstream tasks.
 
 ## Undergraduate Research
 
@@ -28,4 +35,8 @@ Starting in November of 2020, I worked on Zero-sample learning based on semantic
 
 ## Industrial Experience 
 
-NLP Intern, Shanghai Transwarp. Jan - June 2021.
+NLP Intern, Transwarp.                  Jan - Apr 2021.
+
+NLP Intern, Umer Technology.            Apr - July 2021.
+
+SDE Intern, Lime.                       Apr - Aug 2022.
