@@ -7,6 +7,9 @@
   - Major: Telecommunication Engineering
   - GPA: 3.6/4.0
 
+# 💬 Services
+- Program Committee
+  - ACM International Conference on Web Search and Data Mining(WSDM) 2023
 
 
 # 💻 Internships
