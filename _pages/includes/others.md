@@ -15,4 +15,4 @@
 # 💻 Internships
 - *2019.05 - 2020.02*, [Lime](https://www.li.me/), Remote(Los Angeles).
 - *2021.04 - 2021.07*, [Umer Technology](http://www.umer.com.cn/), Shanghai.
-- *2021.01 - 2021.04*, [Transwarp](https://www.transwarp.cn/)), Shanghai.
+- *2021.01 - 2021.04*, [Transwarp](https://www.transwarp.cn/), Shanghai.
