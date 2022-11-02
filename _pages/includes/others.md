@@ -1,18 +1,15 @@
 
 # 📖 Educations
-- *2019.06 - 2022.04*, Master, Zhejiang University, Hangzhou.
-- *2015.09 - 2019.06*, Undergraduate, Chu Kochen Honors College, Zhejiang Univeristy, Hangzhou.
-- *2012.09 - 2015.06*, Luqiao Middle School, Taizhou.
+- *2021.08 - 2023.05*, Master, **University of Southern California**, Los Angeles, CA, USA
+  - Major: Machine Learning and Data Science
+  - GPA: 4.0/4.0
+- *2017.09 - 2021.06*, Bachelor, **Xidian University**, Xi'an, China
+  - Major: Telecommunication Engineering
+  - GPA: 3.6/4.0
 
-# 💬 Invited Talks
-- *2022.02*, Hosted MLNLP seminar \| [\[Video\]](https://www.bilibili.com/video/BV1wF411x7qh)
-- *2021.06*, Audio & Speech Synthesis, Huawei internal talk
-- *2021.03*, Non-autoregressive Speech Synthesis, PaperWeekly & biendata \| [\[video\]](https://www.bilibili.com/video/BV1uf4y1t7Hr/)
-- *2020.12*, Non-autoregressive Speech Synthesis, Huawei Noah's Ark Lab internal talk
+
 
 # 💻 Internships
-- *2019.05 - 2020.02*, [EnjoyMusic](https://enjoymusic.ai/), Hangzhou.
-- *2019.02 - 2019.05*, [YiWise](https://www.yiwise.com/), Hangzhou.
-- *2018.08 - 2019.02*, [MSRA, machine learning Group](https://www.microsoft.com/en-us/research/group/machine-learning-research-group/), Beijing.
-- *2018.01 - 2018.06*, [NetEase, AI department](https://hr.163.com/zc/12-ai/index.html), Hangzhou.
-- *2017.08 - 2018.12*, DashBase (acquired by [Cisco](https://blogs.cisco.com/news/349511)), Hangzhou.
+- *2019.05 - 2020.02*, [Lime](https://www.li.me/), Remote(Los Angeles).
+- *2021.04 - 2021.07*, [Umer Technology](http://www.umer.com.cn/), Shanghai.
+- *2021.01 - 2021.04*, [Transwarp](https://www.transwarp.cn/)), Shanghai.
