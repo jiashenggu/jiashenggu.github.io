@@ -2,7 +2,7 @@
 # 📝 Publications 
 
 Few-shot Code Generation via Rule-AI Co-learning from Document(ACL in prep)  
-**Jiasheng Gu**, Zifan Nan, Dongkuan Xu, Xipeng shen \\
+**Jiasheng Gu**, Zifan Nan, Dongkuan Xu, Xipeng shen
 
 
 Robustness of learning from task instructions(EACL submitted)  
