@@ -1,11 +1,11 @@
 
 # 📝 Publications 
 
-Co-evolving Data-driven and NLU-driven Synthesizers for Generating Code in Low-resource and Growing Domains (Submitted, ACL)  
+Co-evolving Data-driven and NLU-driven Synthesizers for Generating Code in Low-resource and Growing Domains (ACL Submitted)  
 **Jiasheng Gu**, Zifan Nan, Zhiyuan Peng, Dongkuan Xu, Xipeng shen
 
 
-Robustness of learning from task instructions ([Arxiv](https://arxiv.org/abs/2212.03813), Submitted, ACL)  
+Robustness of learning from task instructions ([Arxiv](https://arxiv.org/abs/2212.03813), ACL Submitted)  
 **Jiasheng Gu**, Hongyu Zhao, Hanzi Xu, Liangyu Nie, Hongyuan Mei, Wenpeng Yin
 
 
