@@ -1,4 +1,4 @@
-Hi, I'm Jiasheng Gu, a Algorithm Engineer in 01.ai, I received my Master's degree in Machine Learning and Data Science from the University of Southern California.
+Hi, I'm Jiasheng Gu, Algorithm Engineer at 01.ai, I received my Master's degree in Machine Learning and Data Science from the University of Southern California.
 
 # 💖Research Interests
 My research interest lies in the fields of natural language processing and generation, along with reliable and efficient methods for interconverting between natural language and different forms of data.  
