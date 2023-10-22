@@ -16,5 +16,5 @@
   - The Association for the Advancement of Artificial Intelligence(AAAI) 2023
 
 # 💻 Internships
-- *2022.05 - 2022.08*, [Lime](https://www.li.me/), Remote(Los Angeles).
-- *2021.01 - 2021.07*, [Transwarp](https://www.transwarp.cn/), Shanghai.
+- *2022.05 - 2022.08*, MLE intern, [Lime](https://www.li.me/), Remote(Los Angeles).
+- *2021.01 - 2021.07*, NLP intern, [Transwarp](https://www.transwarp.cn/), Shanghai.
