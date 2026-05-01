@@ -27,17 +27,34 @@ export const cv = {
       ],
     },
   ],
-  researchExperience: [
+  workExperience: [
     {
-      organization: "NVIDIA GEAR",
+      organization: "NVIDIA",
       role: "Research Engineer",
-      period: "Present",
+      location: "Shanghai, China · On-site",
+      period: "Sep. 2025 - Present",
       items: [
-        "Work on robotic foundation models, large language models, and vision-language models for embodied agents.",
+        "Work on artificial intelligence and Python systems for robotic foundation models, large language models, and vision-language models for embodied agents.",
         "Contribute to world-action model research for generalist robot policies and cross-embodiment transfer.",
         "Build research systems at the intersection of multimodal foundation models, robot learning, and embodied AI.",
       ],
     },
+    {
+      organization: "Alibaba Group",
+      role: "Algorithm Engineer",
+      location: "Hangzhou, China · On-site",
+      period: "Feb. 2025 - Jul. 2025",
+      items: ["Worked on Python-based algorithm engineering."],
+    },
+    {
+      organization: "01.AI",
+      role: "Algorithm Engineer",
+      location: "Hangzhou, Zhejiang, China · On-site",
+      period: "Oct. 2023 - Jan. 2025",
+      items: ["Worked on large language model systems with PyTorch."],
+    },
+  ],
+  researchExperience: [
     {
       organization: "Pennsylvania State University",
       role: "Research collaborator",

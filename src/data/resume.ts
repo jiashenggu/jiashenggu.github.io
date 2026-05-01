@@ -43,12 +43,28 @@ export const services = [
 export const workExperience = [
   {
     role: "Research Engineer",
-    organization: "NVIDIA GEAR",
-    href: "https://research.nvidia.com/labs/gear/",
-    location: "Shanghai",
-    period: "Present",
+    organization: "NVIDIA",
+    href: "https://www.nvidia.com/",
+    location: "Shanghai, China · On-site",
+    period: "Sep. 2025 - Present",
     detail:
-      "Works on robotic foundation models, large language models, vision-language models, and world-action models for embodied agents.",
+      "Works on artificial intelligence and Python systems, including robotic foundation models, large language models, vision-language models, and world-action models for embodied agents.",
+  },
+  {
+    role: "Algorithm Engineer",
+    organization: "Alibaba Group",
+    href: "https://www.alibabagroup.com/",
+    location: "Hangzhou, China · On-site",
+    period: "Feb. 2025 - Jul. 2025",
+    detail: "Worked on Python-based algorithm engineering.",
+  },
+  {
+    role: "Algorithm Engineer",
+    organization: "01.AI",
+    href: "https://www.01.ai/",
+    location: "Hangzhou, Zhejiang, China · On-site",
+    period: "Oct. 2023 - Jan. 2025",
+    detail: "Worked on large language model systems with PyTorch.",
   },
 ] as const;
 

@@ -16,7 +16,7 @@ export const profile = {
   sameAs: [
     "https://scholar.google.com/citations?user=rWfz_fcAAAAJ&hl=en",
     "https://github.com/jiashenggu",
-    "https://www.linkedin.com/in/jiashenggu",
+    "https://www.linkedin.com/in/jiasheng-gu/",
     "https://orcid.org/0009-0004-2678-1607",
     "https://twitter.com/JiashengGu",
   ],
@@ -43,7 +43,7 @@ export const profile = {
     },
     {
       label: "LinkedIn",
-      href: "https://www.linkedin.com/in/jiashenggu",
+      href: "https://www.linkedin.com/in/jiasheng-gu/",
       kind: "profile",
     },
     {

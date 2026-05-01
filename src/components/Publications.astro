@@ -1,0 +1,19 @@
+---
+import { profile } from "../data/profile";
+---
+
+<div data-scholar-publications>
+  <p class="publication-state" data-scholar-publications-state>
+    Loading publications from Google Scholar.
+  </p>
+  <ol
+    class="publication-list"
+    data-scholar-publications-list
+    data-url={profile.scholarStatsUrl}
+    data-scholar-profile={profile.sameAs[0]}
+    aria-live="polite"
+  >
+  </ol>
+</div>
+
+<script src="../scripts/scholar-publications.ts"></script>
