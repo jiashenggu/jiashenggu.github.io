@@ -10,7 +10,7 @@ export const profile = {
   siteUrl: "https://jiashenggu.github.io",
   repository: "jiashenggu/jiashenggu.github.io",
   avatar: "/images/android-chrome-192x192.png",
-  cvUrl: "/cv",
+  cvUrl: "/cv/",
   scholarStatsUrl:
     "https://raw.githubusercontent.com/jiashenggu/jiashenggu.github.io/google-scholar-stats/gs_data.json",
   sameAs: [
@@ -28,7 +28,7 @@ export const profile = {
     },
     {
       label: "CV",
-      href: "/cv",
+      href: "/cv/",
       kind: "document",
     },
     {

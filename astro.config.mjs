@@ -4,6 +4,6 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
   site: "https://jiashenggu.github.io",
   output: "static",
-  trailingSlash: "never",
+  trailingSlash: "always",
   integrations: [sitemap()],
 });
