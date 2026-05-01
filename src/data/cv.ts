@@ -31,9 +31,11 @@ export const cv = {
     {
       organization: "NVIDIA GEAR",
       role: "Research Engineer",
-      period: "Current",
+      period: "Present",
       items: [
-        "Work on robotic foundation models, large language models, and vision-language models.",
+        "Work on robotic foundation models, large language models, and vision-language models for embodied agents.",
+        "Contribute to world-action model research for generalist robot policies and cross-embodiment transfer.",
+        "Build research systems at the intersection of multimodal foundation models, robot learning, and embodied AI.",
       ],
     },
     {

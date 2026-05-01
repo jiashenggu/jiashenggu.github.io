@@ -1,8 +1,8 @@
 export const profile = {
   name: "Jiasheng Gu",
   nativeName: "顾家盛",
-  headline: "",
-  jobTitle: "NVIDIA GEAR Research Engineer",
+  headline: "Research Engineer at NVIDIA GEAR",
+  jobTitle: "Research Engineer, NVIDIA GEAR",
   description:
     "Jiasheng Gu is an NVIDIA GEAR Research Engineer working on robotic foundation models, large language models, and vision-language models.",
   location: "Shanghai",

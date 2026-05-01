@@ -40,6 +40,18 @@ export const services = [
   "The Association for the Advancement of Artificial Intelligence (AAAI) 2023",
 ] as const;
 
+export const workExperience = [
+  {
+    role: "Research Engineer",
+    organization: "NVIDIA GEAR",
+    href: "https://research.nvidia.com/labs/gear/",
+    location: "Shanghai",
+    period: "Present",
+    detail:
+      "Works on robotic foundation models, large language models, vision-language models, and world-action models for embodied agents.",
+  },
+] as const;
+
 export const internships = [
   {
     role: "MLE Intern",
