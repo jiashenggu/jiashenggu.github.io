@@ -1,0 +1,73 @@
+---
+import "../styles/global.css";
+import { profile } from "../data/profile";
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalPath?: string;
+}
+
+const {
+  title = `${profile.name} | Academic Homepage`,
+  description = profile.description,
+  canonicalPath = "/",
+} = Astro.props;
+
+const canonicalUrl = new URL(canonicalPath, profile.siteUrl).toString();
+const imageUrl = new URL(profile.avatar, profile.siteUrl).toString();
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: profile.name,
+  alternateName: profile.nativeName,
+  description,
+  url: profile.siteUrl,
+  image: imageUrl,
+  email: `mailto:${profile.email}`,
+  jobTitle: profile.headline,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: profile.location,
+  },
+  sameAs: profile.sameAs,
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content={profile.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:locale" content="en_US" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png" />
+    <link rel="icon" href="/images/favicon.ico" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#f7f3ec" />
+
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

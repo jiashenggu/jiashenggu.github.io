@@ -1,0 +1,56 @@
+---
+import { profile } from "../data/profile";
+
+const externalRel = "noopener noreferrer";
+---
+
+<aside class="profile-panel" aria-label="Profile">
+  <div class="profile-header">
+    <img
+      class="profile-avatar"
+      src={profile.avatar}
+      width="192"
+      height="192"
+      alt={`${profile.name} profile photo`}
+      decoding="async"
+      fetchpriority="high"
+    />
+    <div>
+      <p class="eyebrow">Academic Homepage</p>
+      <h1>{profile.name}</h1>
+      <p class="native-name">{profile.nativeName}</p>
+    </div>
+  </div>
+
+  {profile.headline && <p class="profile-headline">{profile.headline}</p>}
+  <p class="profile-location">{profile.location}</p>
+
+  <div
+    class="scholar-stat"
+    data-scholar-stats
+    data-url={profile.scholarStatsUrl}
+    data-state="loading"
+    aria-live="polite"
+  >
+    <span class="scholar-label">Citations</span>
+    <strong data-scholar-total>Loading</strong>
+  </div>
+
+  <nav class="profile-links" aria-label="Profile links">
+    {
+      profile.links.map((link) => {
+        const isExternal = link.href.startsWith("http");
+        return (
+          <a
+            href={link.href}
+            target={isExternal ? "_blank" : undefined}
+            rel={isExternal ? externalRel : undefined}
+            data-kind={link.kind}
+          >
+            {link.label}
+          </a>
+        );
+      })
+    }
+  </nav>
+</aside>
