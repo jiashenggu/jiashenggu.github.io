@@ -47,10 +47,9 @@ const isCvExternal = profile.cvUrl.startsWith("http");
               <article class="timeline-item">
                 <span class="date">{item.period}</span>
                 <h3>
-                  {item.role}, <a href={item.href} target="_blank" rel={externalRel}>{item.organization}</a>
+                  <a href={item.href} target="_blank" rel={externalRel}>{item.organization}</a> · {item.role}
                 </h3>
                 <p>{item.detail}</p>
-                <small>{item.location}</small>
               </article>
             ))
           }
