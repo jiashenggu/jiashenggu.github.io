@@ -1,25 +1,18 @@
 ---
-import ProfileCard from "../components/ProfileCard.astro";
 import Section from "../components/Section.astro";
-import BaseLayout from "../layouts/BaseLayout.astro";
+import { cv } from "../data/cv";
 import { profile } from "../data/profile";
-import { education, honors, internships, services } from "../data/resume";
-
-const navItems = [
-  { label: "About", href: "#about" },
-  { label: "Publications", href: "#publications" },
-  { label: "CV", href: profile.cvUrl },
-  { label: "Honors", href: "#honors" },
-  { label: "Education", href: "#education" },
-  { label: "Service", href: "#service" },
-  { label: "Experience", href: "#experience" },
-];
+import BaseLayout from "../layouts/BaseLayout.astro";
 
 const externalRel = "noopener noreferrer";
-const isCvExternal = profile.cvUrl.startsWith("http");
+const profileLinks = profile.links.filter((link) => link.label !== "CV");
 ---
 
-<BaseLayout>
+<BaseLayout
+  title={`${profile.name} | CV`}
+  description={cv.summary}
+  canonicalPath="/cv"
+>
   <a class="skip-link" href="#main-content">Skip to content</a>
 
   <header class="site-header">
@@ -29,99 +22,176 @@ const isCvExternal = profile.cvUrl.startsWith("http");
         <small>{profile.nativeName}</small>
       </a>
       <ul>
-        {navItems.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+        <li><a href="/">Home</a></li>
+        <li><a href="/#publications">Publications</a></li>
+        <li><a href={profile.sameAs[0]} target="_blank" rel={externalRel}>Google Scholar</a></li>
       </ul>
     </nav>
   </header>
 
-  <div class="page-shell">
-    <ProfileCard />
+  <main id="main-content" class="cv-shell">
+    <section class="cv-hero" aria-labelledby="cv-title">
+      <p class="eyebrow">Curriculum Vitae</p>
+      <h1 id="cv-title">{profile.name}</h1>
+      <p class="cv-role">{profile.jobTitle}</p>
+      <p class="lead">{cv.summary}</p>
+      <div class="inline-links cv-actions">
+        <a href="/">Homepage</a>
+        {
+          profileLinks.map((link) => {
+            const isExternal = link.href.startsWith("http");
+            return (
+              <a
+                href={link.href}
+                target={isExternal ? "_blank" : undefined}
+                rel={isExternal ? externalRel : undefined}
+              >
+                {link.label}
+              </a>
+            );
+          })
+        }
+      </div>
+    </section>
 
-    <main id="main-content" class="content-flow">
-      <Section id="about" title="About" kicker="Profile">
-        <p class="lead">
-          I am an NVIDIA GEAR Research Engineer working on robotic foundation models,
-          large language models, and vision-language models.
-        </p>
-        <p>
-          I received my Master's degree from the University of Southern California.
-          A current CV is available
-          <a
-            href={profile.cvUrl}
-            target={isCvExternal ? "_blank" : undefined}
-            rel={isCvExternal ? externalRel : undefined}
-          >
-            online
-          </a>.
-        </p>
-      </Section>
+    <Section id="research-interests" title="Research Interests" kicker="Focus">
+      <ul class="tag-list">
+        {cv.researchInterests.map((interest) => <li>{interest}</li>)}
+      </ul>
+    </Section>
 
-      <Section id="publications" title="Publications" kicker="Google Scholar">
-        <p class="publication-state" data-publications-state>
-          Loading publications from Google Scholar.
-        </p>
-        <ol
-          class="publication-list"
-          data-publications-list
-          data-scholar-profile={profile.sameAs[0]}
-          aria-live="polite"
-        >
-        </ol>
-      </Section>
-
-      <Section id="honors" title="Honors and Awards" kicker="Recognition">
-        <div class="compact-grid">
-          {
-            honors.map((honor) => (
-              <article class="compact-card">
-                <span class="date">{honor.date}</span>
-                <h3>{honor.title}</h3>
-                <p>{honor.organization}</p>
-                <small>{honor.detail}</small>
-              </article>
-            ))
-          }
-        </div>
-      </Section>
-
-      <Section id="education" title="Education" kicker="Background">
-        <div class="timeline-list">
-          {
-            education.map((item) => (
-              <article class="timeline-item">
+    <Section id="education" title="Education" kicker="Background">
+      <div class="cv-entry-list">
+        {
+          cv.education.map((item) => (
+            <article class="cv-entry">
+              <div class="cv-entry-heading">
+                <h3>{item.institution}</h3>
                 <span class="date">{item.period}</span>
-                <h3>{item.degree}, {item.institution}</h3>
-                {item.field && <p>{item.field}</p>}
-                <small>{item.location} · {item.detail}</small>
-              </article>
-            ))
-          }
-        </div>
-      </Section>
+              </div>
+              <p>{item.degree}</p>
+              <ul>
+                {item.details.map((detail) => <li>{detail}</li>)}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+    </Section>
 
-      <Section id="service" title="Service" kicker="Program committee">
-        <ul class="service-list">
-          {services.map((service) => <li>{service}</li>)}
-        </ul>
-      </Section>
-
-      <Section id="experience" title="Internships" kicker="Experience">
-        <div class="timeline-list">
-          {
-            internships.map((item) => (
-              <article class="timeline-item">
+    <Section id="research-experience" title="Research Experience" kicker="Projects">
+      <div class="cv-entry-list">
+        {
+          cv.researchExperience.map((item) => (
+            <article class="cv-entry">
+              <div class="cv-entry-heading">
+                <h3>{item.organization}</h3>
                 <span class="date">{item.period}</span>
-                <h3>
-                  {item.role}, <a href={item.href} target="_blank" rel={externalRel}>{item.organization}</a>
-                </h3>
-                <p>{item.location}</p>
-              </article>
-            ))
-          }
-        </div>
-      </Section>
-    </main>
-  </div>
+              </div>
+              <p>
+                <strong>{item.role}</strong>
+                {"mentor" in item && item.mentor ? ` · Mentor: ${item.mentor}` : ""}
+              </p>
+              <ul>
+                {item.items.map((detail) => <li>{detail}</li>)}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+    </Section>
+
+    <Section id="industry-experience" title="Industry Experience" kicker="Applied work">
+      <div class="cv-entry-list">
+        {
+          cv.industryExperience.map((item) => (
+            <article class="cv-entry">
+              <div class="cv-entry-heading">
+                <h3>{item.organization}</h3>
+                <span class="date">{item.period}</span>
+              </div>
+              <p><strong>{item.role}</strong></p>
+              <ul>
+                {item.items.map((detail) => <li>{detail}</li>)}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+    </Section>
+
+    <Section id="publications" title="Publications" kicker="Google Scholar">
+      <p class="publication-state" data-cv-publications-state>
+        Loading publications from Google Scholar.
+      </p>
+      <ol
+        class="publication-list"
+        data-cv-publications-list
+        data-url={profile.scholarStatsUrl}
+        data-scholar-profile={profile.sameAs[0]}
+        aria-live="polite"
+      >
+      </ol>
+    </Section>
+
+    <Section id="teaching" title="Teaching" kicker="Instruction">
+      <div class="cv-entry-list">
+        {
+          cv.teachingExperience.map((item) => (
+            <article class="cv-entry">
+              <div class="cv-entry-heading">
+                <h3>{item.organization}</h3>
+                <span class="date">{item.period}</span>
+              </div>
+              <p><strong>{item.role}</strong></p>
+              <ul>
+                {item.items.map((detail) => <li>{detail}</li>)}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+    </Section>
+
+    <Section id="service" title="Professional Service" kicker="Reviewing">
+      <ul class="service-list">
+        {cv.professionalService.map((service) => <li>{service}</li>)}
+      </ul>
+    </Section>
+
+    <Section id="awards" title="Awards" kicker="Recognition">
+      <div class="compact-grid">
+        {
+          cv.awards.map((award) => (
+            <article class="compact-card">
+              <span class="date">{award.year}</span>
+              <h3>{award.title}</h3>
+              <p>{award.organization}</p>
+            </article>
+          ))
+        }
+      </div>
+    </Section>
+
+    <Section id="skills" title="Skills" kicker="Tools">
+      <div class="skill-groups">
+        {
+          cv.skills.map((group) => (
+            <section class="skill-group" aria-label={group.label}>
+              <h3>{group.label}</h3>
+              <ul class="tag-list">
+                {group.items.map((item) => <li>{item}</li>)}
+              </ul>
+            </section>
+          ))
+        }
+      </div>
+    </Section>
+
+    <Section id="references" title="References" kicker="Contact">
+      <p>{cv.references}</p>
+    </Section>
+  </main>
 
   <footer class="site-footer">
     <p>© {new Date().getFullYear()} {profile.name}</p>
@@ -129,12 +199,10 @@ const isCvExternal = profile.cvUrl.startsWith("http");
 
   <script>
     (() => {
-      const stat = document.querySelector("[data-scholar-stats]");
-      const citationsTarget =
-        stat instanceof HTMLElement ? stat.querySelector("[data-scholar-total]") : null;
-      const publicationsList = document.querySelector("[data-publications-list]");
-      const publicationsState = document.querySelector("[data-publications-state]");
-      const url = stat instanceof HTMLElement ? stat.dataset.url : "";
+      const publicationsList = document.querySelector("[data-cv-publications-list]");
+      const publicationsState = document.querySelector("[data-cv-publications-state]");
+      const url =
+        publicationsList instanceof HTMLElement ? publicationsList.dataset.url : "";
       const scholarProfileUrl =
         publicationsList instanceof HTMLElement
           ? publicationsList.dataset.scholarProfile
@@ -193,19 +261,13 @@ const isCvExternal = profile.cvUrl.startsWith("http");
         }
       };
 
-      const setCitationState = (label: string, state: string): void => {
-        if (!(stat instanceof HTMLElement) || !citationsTarget) return;
-        citationsTarget.textContent = label;
-        stat.dataset.state = state;
-      };
-
       const setPublicationsState = (label: string): void => {
         if (!(publicationsState instanceof HTMLElement)) return;
         publicationsState.hidden = false;
         publicationsState.textContent = label;
       };
 
-      const hidePublicationsState = () => {
+      const hidePublicationsState = (): void => {
         if (publicationsState instanceof HTMLElement) {
           publicationsState.hidden = true;
         }
@@ -263,7 +325,6 @@ const isCvExternal = profile.cvUrl.startsWith("http");
 
       const renderPublications = (publications: ScholarPublication[]): void => {
         if (!(publicationsList instanceof HTMLOListElement)) return;
-
         publicationsList.replaceChildren();
         if (publications.length === 0) {
           setPublicationsState("No Google Scholar publications are available yet.");
@@ -322,7 +383,6 @@ const isCvExternal = profile.cvUrl.startsWith("http");
       };
 
       if (!url) {
-        setCitationState("Unavailable", "unavailable");
         setPublicationsState("Google Scholar data source is unavailable.");
         return;
       }
@@ -334,19 +394,8 @@ const isCvExternal = profile.cvUrl.startsWith("http");
           }
           return response.json();
         })
-        .then((data) => {
-          const citedBy = Number(data?.citedby);
-          if (Number.isFinite(citedBy)) {
-            setCitationState(citedBy.toLocaleString(), "ready");
-          } else {
-            setCitationState("Unavailable", "unavailable");
-          }
-          renderPublications(getPublications(data));
-        })
-        .catch(() => {
-          setCitationState("Unavailable", "unavailable");
-          setPublicationsState("Unable to load Google Scholar publications.");
-        });
+        .then((data) => renderPublications(getPublications(data)))
+        .catch(() => setPublicationsState("Unable to load Google Scholar publications."));
     })();
   </script>
 </BaseLayout>

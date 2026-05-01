@@ -18,6 +18,7 @@ src/
   data/                Profile and resume data
   layouts/             Base HTML/SEO layout
   pages/index.astro    Homepage
+  pages/cv.astro       Web CV page
   styles/global.css    Site-wide CSS
 public/
   images/              Favicons and profile image
@@ -52,9 +53,10 @@ npm audit --audit-level=moderate
 ## Content Updates
 
 - Profile and links: `src/data/profile.ts`
+- Web CV content: `src/data/cv.ts`
 - Publications: Google Scholar is the source of truth. Update the Scholar profile, then run the Google Scholar workflow.
 - Education, honors, service, internships: `src/data/resume.ts`
-- Page layout/content: `src/pages/index.astro`
+- Page layout/content: `src/pages/index.astro` and `src/pages/cv.astro`
 - Styling: `src/styles/global.css`
 
 ## Deployment
