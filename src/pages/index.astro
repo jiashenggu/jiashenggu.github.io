@@ -7,8 +7,8 @@ import { profile } from "../data/profile";
 import { education, honors, internships, services, workExperience } from "../data/resume";
 
 const navItems = [
-  { label: "Experience", href: "#experience" },
   { label: "About", href: "#about" },
+  { label: "Experience", href: "#experience" },
   { label: "Publications", href: "#publications" },
   { label: "CV", href: profile.cvUrl },
   { label: "Honors", href: "#honors" },
@@ -40,22 +40,6 @@ const isCvExternal = profile.cvUrl.startsWith("http");
     <ProfileCard />
 
     <main id="main-content" class="content-flow">
-      <Section id="experience" title="Work Experience" kicker="Experience">
-        <div class="timeline-list">
-          {
-            workExperience.map((item) => (
-              <article class="timeline-item">
-                <span class="date">{item.period}</span>
-                <h3>
-                  <a href={item.href} target="_blank" rel={externalRel}>{item.organization}</a> · {item.role}
-                </h3>
-                <p>{item.detail}</p>
-              </article>
-            ))
-          }
-        </div>
-      </Section>
-
       <Section id="about" title="About" kicker="Profile">
         <p class="lead">
           I am an NVIDIA GEAR Research Engineer working on robotic foundation models,
@@ -72,6 +56,22 @@ const isCvExternal = profile.cvUrl.startsWith("http");
             online
           </a>.
         </p>
+      </Section>
+
+      <Section id="experience" title="Work Experience" kicker="Experience">
+        <div class="timeline-list">
+          {
+            workExperience.map((item) => (
+              <article class="timeline-item">
+                <span class="date">{item.period}</span>
+                <h3>
+                  <a href={item.href} target="_blank" rel={externalRel}>{item.organization}</a> · {item.role}
+                </h3>
+                <p>{item.detail}</p>
+              </article>
+            ))
+          }
+        </div>
       </Section>
 
       <Section id="publications" title="Publications" kicker="Google Scholar">
