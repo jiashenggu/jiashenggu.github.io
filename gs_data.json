@@ -1,0 +1,163 @@
+{
+  "affiliation": "NVIDIA",
+  "citedby": 371,
+  "cites_per_year": {
+    "2023": 3,
+    "2024": 17,
+    "2025": 35,
+    "2026": 313
+  },
+  "email_domain": "No verified email",
+  "hindex": 5,
+  "homepage": "https://jiashenggu.github.io/",
+  "i10index": 5,
+  "interests": [
+    "Robotic Foundation Models",
+    "LLM",
+    "VLM"
+  ],
+  "name": "Jiasheng Gu",
+  "publication_count": 6,
+  "publications": {
+    "rWfz_fcAAAAJ:2osOgNQ5qMEC": {
+      "authors": "S Ye, Y Ge, K Zheng, S Gao, S Yu, G Kurian, S Indupuru, YL Tan, C Zhu, ...",
+      "citation_id": "rWfz_fcAAAAJ:2osOgNQ5qMEC",
+      "cited_by": {
+        "cites_id": "16590329917160644105",
+        "link": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=16590329917160644105",
+        "serpapi_link": "https://serpapi.com/search.json?cites=16590329917160644105&engine=google_scholar&hl=en",
+        "value": 39
+      },
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=rWfz_fcAAAAJ&pagesize=100&citation_for_view=rWfz_fcAAAAJ:2osOgNQ5qMEC",
+      "publication": "World action models are zero-shot policies 1, 2, 2026",
+      "title": "Yilun Du, Yevgen Chebotar, Scott Reed, Jan Kautz, Yuke Zhu, Linxi\" Jim\" Fan, and Joel Jang",
+      "year": "2026"
+    },
+    "rWfz_fcAAAAJ:9yKSN-GCB0IC": {
+      "authors": "S Ye, Y Ge, K Zheng, S Gao, S Yu, G Kurian, S Indupuru, YL Tan, C Zhu, ...",
+      "citation_id": "rWfz_fcAAAAJ:9yKSN-GCB0IC",
+      "cited_by": {
+        "cites_id": "14740109595896915830",
+        "link": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=14740109595896915830",
+        "serpapi_link": "https://serpapi.com/search.json?cites=14740109595896915830&engine=google_scholar&hl=en",
+        "value": 251
+      },
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=rWfz_fcAAAAJ&pagesize=100&citation_for_view=rWfz_fcAAAAJ:9yKSN-GCB0IC",
+      "publication": "arXiv preprint arXiv:2602.15922, 2026",
+      "title": "World action models are zero-shot policies",
+      "year": "2026"
+    },
+    "rWfz_fcAAAAJ:UeHWp8X0CEIC": {
+      "authors": "S Ye, Y Ge, K Zheng, S Gao, S Yu, G Kurian, S Indupuru, YL Tan, C Zhu, ...",
+      "citation_id": "rWfz_fcAAAAJ:UeHWp8X0CEIC",
+      "cited_by": {
+        "cites_id": "18433181384448753780",
+        "link": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=18433181384448753780",
+        "serpapi_link": "https://serpapi.com/search.json?cites=18433181384448753780&engine=google_scholar&hl=en",
+        "value": 14
+      },
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=rWfz_fcAAAAJ&pagesize=100&citation_for_view=rWfz_fcAAAAJ:UeHWp8X0CEIC",
+      "publication": "URL https://arxiv. org/abs/2602.15922, 0",
+      "title": "World action models are zero-shot policies, 2026",
+      "year": ""
+    },
+    "rWfz_fcAAAAJ:d1gkVwhDpl0C": {
+      "authors": "J Gu, Z Nan, Z Peng, X Shen, D Xu",
+      "citation_id": "rWfz_fcAAAAJ:d1gkVwhDpl0C",
+      "cited_by": {
+        "value": null
+      },
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=rWfz_fcAAAAJ&pagesize=100&citation_for_view=rWfz_fcAAAAJ:d1gkVwhDpl0C",
+      "publication": "Proceedings of the 2nd Workshop on Pattern-based Approaches to NLP in the …, 2023",
+      "title": "Co-evolving data-driven and NLU-driven Synthesizers for Generating Code in Domain Growth and Data Scarcity",
+      "year": "2023"
+    },
+    "rWfz_fcAAAAJ:u-x6o8ySG0sC": {
+      "authors": "J Gu, C Gao, L Wang",
+      "citation_id": "rWfz_fcAAAAJ:u-x6o8ySG0sC",
+      "cited_by": {
+        "cites_id": "1792878729567366330",
+        "link": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=1792878729567366330",
+        "serpapi_link": "https://serpapi.com/search.json?cites=1792878729567366330&engine=google_scholar&hl=en",
+        "value": 17
+      },
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=rWfz_fcAAAAJ&pagesize=100&citation_for_view=rWfz_fcAAAAJ:u-x6o8ySG0sC",
+      "publication": "Jmir Ai 2, e45770, 2023",
+      "title": "The evolution of artificial intelligence in biomedicine: Bibliometric analysis",
+      "year": "2023"
+    },
+    "rWfz_fcAAAAJ:u5HHmVD_uO8C": {
+      "authors": "J Gu, H Zhao, H Xu, L Nie, H Mei, W Yin",
+      "citation_id": "rWfz_fcAAAAJ:u5HHmVD_uO8C",
+      "cited_by": {
+        "cites_id": "1303126742645861590",
+        "link": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=1303126742645861590",
+        "serpapi_link": "https://serpapi.com/search.json?cites=1303126742645861590&engine=google_scholar&hl=en",
+        "value": 50
+      },
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=rWfz_fcAAAAJ&pagesize=100&citation_for_view=rWfz_fcAAAAJ:u5HHmVD_uO8C",
+      "publication": "Findings of the Association for Computational Linguistics: ACL 2023, 13935-13948, 2023",
+      "title": "Robustness of learning from task instructions",
+      "year": "2023"
+    }
+  },
+  "publications_list": [
+    {
+      "authors": "S Ye, Y Ge, K Zheng, S Gao, S Yu, G Kurian, S Indupuru, YL Tan, C Zhu, ...",
+      "citations": 251,
+      "id": "rWfz_fcAAAAJ:9yKSN-GCB0IC",
+      "title": "World action models are zero-shot policies",
+      "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=rWfz_fcAAAAJ&pagesize=100&citation_for_view=rWfz_fcAAAAJ:9yKSN-GCB0IC",
+      "venue": "arXiv preprint arXiv:2602.15922, 2026",
+      "year": "2026"
+    },
+    {
+      "authors": "S Ye, Y Ge, K Zheng, S Gao, S Yu, G Kurian, S Indupuru, YL Tan, C Zhu, ...",
+      "citations": 39,
+      "id": "rWfz_fcAAAAJ:2osOgNQ5qMEC",
+      "title": "Yilun Du, Yevgen Chebotar, Scott Reed, Jan Kautz, Yuke Zhu, Linxi\" Jim\" Fan, and Joel Jang",
+      "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=rWfz_fcAAAAJ&pagesize=100&citation_for_view=rWfz_fcAAAAJ:2osOgNQ5qMEC",
+      "venue": "World action models are zero-shot policies 1, 2, 2026",
+      "year": "2026"
+    },
+    {
+      "authors": "J Gu, H Zhao, H Xu, L Nie, H Mei, W Yin",
+      "citations": 50,
+      "id": "rWfz_fcAAAAJ:u5HHmVD_uO8C",
+      "title": "Robustness of learning from task instructions",
+      "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=rWfz_fcAAAAJ&pagesize=100&citation_for_view=rWfz_fcAAAAJ:u5HHmVD_uO8C",
+      "venue": "Findings of the Association for Computational Linguistics: ACL 2023, 13935-13948, 2023",
+      "year": "2023"
+    },
+    {
+      "authors": "J Gu, C Gao, L Wang",
+      "citations": 17,
+      "id": "rWfz_fcAAAAJ:u-x6o8ySG0sC",
+      "title": "The evolution of artificial intelligence in biomedicine: Bibliometric analysis",
+      "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=rWfz_fcAAAAJ&pagesize=100&citation_for_view=rWfz_fcAAAAJ:u-x6o8ySG0sC",
+      "venue": "Jmir Ai 2, e45770, 2023",
+      "year": "2023"
+    },
+    {
+      "authors": "J Gu, Z Nan, Z Peng, X Shen, D Xu",
+      "citations": 0,
+      "id": "rWfz_fcAAAAJ:d1gkVwhDpl0C",
+      "title": "Co-evolving data-driven and NLU-driven Synthesizers for Generating Code in Domain Growth and Data Scarcity",
+      "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=rWfz_fcAAAAJ&pagesize=100&citation_for_view=rWfz_fcAAAAJ:d1gkVwhDpl0C",
+      "venue": "Proceedings of the 2nd Workshop on Pattern-based Approaches to NLP in the …, 2023",
+      "year": "2023"
+    },
+    {
+      "authors": "S Ye, Y Ge, K Zheng, S Gao, S Yu, G Kurian, S Indupuru, YL Tan, C Zhu, ...",
+      "citations": 14,
+      "id": "rWfz_fcAAAAJ:UeHWp8X0CEIC",
+      "title": "World action models are zero-shot policies, 2026",
+      "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=rWfz_fcAAAAJ&pagesize=100&citation_for_view=rWfz_fcAAAAJ:UeHWp8X0CEIC",
+      "venue": "URL https://arxiv. org/abs/2602.15922, 0",
+      "year": ""
+    }
+  ],
+  "scholar_id": "rWfz_fcAAAAJ",
+  "source": "serpapi",
+  "updated": "2026-09-05T11:42:46.311029+00:00"
+}
