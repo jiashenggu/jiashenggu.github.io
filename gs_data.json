@@ -1,0 +1,117 @@
+{
+  "affiliation": "NVIDIA",
+  "citedby": 440,
+  "cites_per_year": {
+    "2023": 3,
+    "2024": 17,
+    "2025": 36,
+    "2026": 382
+  },
+  "email_domain": "No verified email",
+  "hindex": 3,
+  "homepage": "https://jiashenggu.github.io/",
+  "i10index": 3,
+  "interests": [
+    "Robotic Foundation Models",
+    "LLM",
+    "VLM"
+  ],
+  "name": "Jiasheng Gu",
+  "publication_count": 4,
+  "publications": {
+    "rWfz_fcAAAAJ:9yKSN-GCB0IC": {
+      "authors": "S Ye, Y Ge, K Zheng, S Gao, S Yu, G Kurian, S Indupuru, YL Tan, C Zhu, ...",
+      "citation_id": "rWfz_fcAAAAJ:9yKSN-GCB0IC",
+      "cited_by": {
+        "cites_id": "14740109595896915830",
+        "link": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=14740109595896915830",
+        "serpapi_link": "https://serpapi.com/search.json?cites=14740109595896915830&engine=google_scholar&hl=en",
+        "value": 369
+      },
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=rWfz_fcAAAAJ&pagesize=100&citation_for_view=rWfz_fcAAAAJ:9yKSN-GCB0IC",
+      "publication": "arXiv preprint arXiv:2602.15922, 2026",
+      "title": "World action models are zero-shot policies",
+      "year": "2026"
+    },
+    "rWfz_fcAAAAJ:d1gkVwhDpl0C": {
+      "authors": "J Gu, Z Nan, Z Peng, X Shen, D Xu",
+      "citation_id": "rWfz_fcAAAAJ:d1gkVwhDpl0C",
+      "cited_by": {
+        "value": null
+      },
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=rWfz_fcAAAAJ&pagesize=100&citation_for_view=rWfz_fcAAAAJ:d1gkVwhDpl0C",
+      "publication": "Proceedings of the 2nd Workshop on Pattern-based Approaches to NLP in the …, 2023",
+      "title": "Co-evolving data-driven and NLU-driven Synthesizers for Generating Code in Domain Growth and Data Scarcity",
+      "year": "2023"
+    },
+    "rWfz_fcAAAAJ:u-x6o8ySG0sC": {
+      "authors": "J Gu, C Gao, L Wang",
+      "citation_id": "rWfz_fcAAAAJ:u-x6o8ySG0sC",
+      "cited_by": {
+        "cites_id": "1792878729567366330",
+        "link": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=1792878729567366330",
+        "serpapi_link": "https://serpapi.com/search.json?cites=1792878729567366330&engine=google_scholar&hl=en",
+        "value": 20
+      },
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=rWfz_fcAAAAJ&pagesize=100&citation_for_view=rWfz_fcAAAAJ:u-x6o8ySG0sC",
+      "publication": "Jmir Ai 2 (1), e45770, 2023",
+      "title": "The evolution of artificial intelligence in biomedicine: bibliometric analysis",
+      "year": "2023"
+    },
+    "rWfz_fcAAAAJ:u5HHmVD_uO8C": {
+      "authors": "J Gu, H Zhao, H Xu, L Nie, H Mei, W Yin",
+      "citation_id": "rWfz_fcAAAAJ:u5HHmVD_uO8C",
+      "cited_by": {
+        "cites_id": "1303126742645861590",
+        "link": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=1303126742645861590",
+        "serpapi_link": "https://serpapi.com/search.json?cites=1303126742645861590&engine=google_scholar&hl=en",
+        "value": 51
+      },
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=rWfz_fcAAAAJ&pagesize=100&citation_for_view=rWfz_fcAAAAJ:u5HHmVD_uO8C",
+      "publication": "Findings of the Association for Computational Linguistics: ACL 2023, 13935-13948, 2023",
+      "title": "Robustness of learning from task instructions",
+      "year": "2023"
+    }
+  },
+  "publications_list": [
+    {
+      "authors": "S Ye, Y Ge, K Zheng, S Gao, S Yu, G Kurian, S Indupuru, YL Tan, C Zhu, ...",
+      "citations": 369,
+      "id": "rWfz_fcAAAAJ:9yKSN-GCB0IC",
+      "title": "World action models are zero-shot policies",
+      "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=rWfz_fcAAAAJ&pagesize=100&citation_for_view=rWfz_fcAAAAJ:9yKSN-GCB0IC",
+      "venue": "arXiv preprint arXiv:2602.15922, 2026",
+      "year": "2026"
+    },
+    {
+      "authors": "J Gu, H Zhao, H Xu, L Nie, H Mei, W Yin",
+      "citations": 51,
+      "id": "rWfz_fcAAAAJ:u5HHmVD_uO8C",
+      "title": "Robustness of learning from task instructions",
+      "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=rWfz_fcAAAAJ&pagesize=100&citation_for_view=rWfz_fcAAAAJ:u5HHmVD_uO8C",
+      "venue": "Findings of the Association for Computational Linguistics: ACL 2023, 13935-13948, 2023",
+      "year": "2023"
+    },
+    {
+      "authors": "J Gu, C Gao, L Wang",
+      "citations": 20,
+      "id": "rWfz_fcAAAAJ:u-x6o8ySG0sC",
+      "title": "The evolution of artificial intelligence in biomedicine: bibliometric analysis",
+      "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=rWfz_fcAAAAJ&pagesize=100&citation_for_view=rWfz_fcAAAAJ:u-x6o8ySG0sC",
+      "venue": "Jmir Ai 2 (1), e45770, 2023",
+      "year": "2023"
+    },
+    {
+      "authors": "J Gu, Z Nan, Z Peng, X Shen, D Xu",
+      "citations": 0,
+      "id": "rWfz_fcAAAAJ:d1gkVwhDpl0C",
+      "title": "Co-evolving data-driven and NLU-driven Synthesizers for Generating Code in Domain Growth and Data Scarcity",
+      "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=rWfz_fcAAAAJ&pagesize=100&citation_for_view=rWfz_fcAAAAJ:d1gkVwhDpl0C",
+      "venue": "Proceedings of the 2nd Workshop on Pattern-based Approaches to NLP in the …, 2023",
+      "year": "2023"
+    }
+  ],
+  "scholar_id": "rWfz_fcAAAAJ",
+  "source": "serpapi",
+  "updated": "2026-10-10T14:18:42.835868+00:00"
+}
