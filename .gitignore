@@ -1,4 +1,9 @@
 _site/
+dist/
+.astro/
+node_modules/
 push.sh
 .DS_Store
-/github_myprofile_updater/README.md
+__pycache__/
+.pytest_cache/
+google_scholar_crawler/results/

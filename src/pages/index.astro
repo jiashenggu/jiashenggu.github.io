@@ -1,0 +1,139 @@
+---
+import ProfileCard from "../components/ProfileCard.astro";
+import Publications from "../components/Publications.astro";
+import Section from "../components/Section.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { profile } from "../data/profile";
+import { education, honors, internships, services, workExperience } from "../data/resume";
+
+const navItems = [
+  { label: "About", href: "#about" },
+  { label: "Experience", href: "#experience" },
+  { label: "Publications", href: "#publications" },
+  { label: "CV", href: profile.cvUrl },
+  { label: "Honors", href: "#honors" },
+  { label: "Education", href: "#education" },
+  { label: "Service", href: "#service" },
+  { label: "Internships", href: "#internships" },
+];
+
+const externalRel = "noopener noreferrer";
+const isCvExternal = profile.cvUrl.startsWith("http");
+---
+
+<BaseLayout>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <nav class="top-nav" aria-label="Primary navigation">
+      <a class="brand" href="/" aria-label={`${profile.name} homepage`}>
+        <span>{profile.name}</span>
+        <small>{profile.nativeName}</small>
+      </a>
+      <ul>
+        {navItems.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+      </ul>
+    </nav>
+  </header>
+
+  <div class="page-shell">
+    <ProfileCard />
+
+    <main id="main-content" class="content-flow">
+      <Section id="about" title="About" kicker="Profile">
+        <p class="lead">
+          I am an NVIDIA GEAR Research Engineer working on robotic foundation models,
+          large language models, and vision-language models.
+        </p>
+        <p>
+          I received my Master's degree from the University of Southern California.
+          A current CV is available
+          <a
+            href={profile.cvUrl}
+            target={isCvExternal ? "_blank" : undefined}
+            rel={isCvExternal ? externalRel : undefined}
+          >
+            online
+          </a>.
+        </p>
+      </Section>
+
+      <Section id="experience" title="Work Experience" kicker="Experience">
+        <div class="timeline-list">
+          {
+            workExperience.map((item) => (
+              <article class="timeline-item">
+                <span class="date">{item.period}</span>
+                <h3>
+                  <a href={item.href} target="_blank" rel={externalRel}>{item.organization}</a> · {item.role}
+                </h3>
+                <p>{item.detail}</p>
+              </article>
+            ))
+          }
+        </div>
+      </Section>
+
+      <Section id="publications" title="Publications" kicker="Google Scholar">
+        <Publications />
+      </Section>
+
+      <Section id="honors" title="Honors and Awards" kicker="Recognition">
+        <div class="compact-grid">
+          {
+            honors.map((honor) => (
+              <article class="compact-card">
+                <span class="date">{honor.date}</span>
+                <h3>{honor.title}</h3>
+                <p>{honor.organization}</p>
+                <small>{honor.detail}</small>
+              </article>
+            ))
+          }
+        </div>
+      </Section>
+
+      <Section id="education" title="Education" kicker="Background">
+        <div class="timeline-list">
+          {
+            education.map((item) => (
+              <article class="timeline-item">
+                <span class="date">{item.period}</span>
+                <h3>{item.degree}, {item.institution}</h3>
+                {item.field && <p>{item.field}</p>}
+                <small>{item.location} · {item.detail}</small>
+              </article>
+            ))
+          }
+        </div>
+      </Section>
+
+      <Section id="service" title="Service" kicker="Program committee">
+        <ul class="service-list">
+          {services.map((service) => <li>{service}</li>)}
+        </ul>
+      </Section>
+
+      <Section id="internships" title="Internships" kicker="Experience">
+        <div class="timeline-list">
+          {
+            internships.map((item) => (
+              <article class="timeline-item">
+                <span class="date">{item.period}</span>
+                <h3>
+                  {item.role}, <a href={item.href} target="_blank" rel={externalRel}>{item.organization}</a>
+                </h3>
+                <small>{item.location}</small>
+              </article>
+            ))
+          }
+        </div>
+      </Section>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <p>© {new Date().getFullYear()} {profile.name}</p>
+  </footer>
+
+</BaseLayout>

@@ -1,0 +1,27 @@
+{
+  "name": "jiashenggu.github.io",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Astro static site for Jiasheng Gu's academic homepage.",
+  "engines": {
+    "node": ">=22.14.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.2",
+    "astro": "^6.2.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "typescript": "^6.0.3"
+  },
+  "overrides": {
+    "yaml": "^2.8.3"
+  }
+}
