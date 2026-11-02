@@ -7,3 +7,4 @@ push.sh
 __pycache__/
 .pytest_cache/
 google_scholar_crawler/results/
+.local-artifacts/

@@ -4,13 +4,11 @@ export const profile = {
   headline: "Research Engineer at NVIDIA GEAR",
   jobTitle: "Research Engineer, NVIDIA GEAR",
   description:
-    "Jiasheng Gu is an NVIDIA GEAR Research Engineer working on robotic foundation models, large language models, and vision-language models.",
+    "Jiasheng Gu, NVIDIA GEAR Research Engineer, works on generative robot policies and post-training, with a background in multimodal generation and understanding.",
   location: "Shanghai",
   email: "jiashengguwen@gmail.com",
   siteUrl: "https://jiashenggu.github.io",
   repository: "jiashenggu/jiashenggu.github.io",
-  avatar: "/images/android-chrome-192x192.png",
-  cvUrl: "/cv/",
   scholarStatsUrl:
     "https://raw.githubusercontent.com/jiashenggu/jiashenggu.github.io/google-scholar-stats/gs_data.json",
   sameAs: [
@@ -25,11 +23,6 @@ export const profile = {
       label: "Email",
       href: "mailto:jiashengguwen@gmail.com",
       kind: "email",
-    },
-    {
-      label: "CV",
-      href: "/cv/",
-      kind: "document",
     },
     {
       label: "Google Scholar",

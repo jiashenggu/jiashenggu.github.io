@@ -1,4 +1,5 @@
 ---
+import "../styles/fonts.css";
 import "../styles/global.css";
 import { profile } from "../data/profile";
 
@@ -9,13 +10,13 @@ interface Props {
 }
 
 const {
-  title = `${profile.name} | Academic Homepage`,
+  title = `${profile.name} — Generative & Embodied AI`,
   description = profile.description,
   canonicalPath = "/",
 } = Astro.props;
 
 const canonicalUrl = new URL(canonicalPath, profile.siteUrl).toString();
-const imageUrl = new URL(profile.avatar, profile.siteUrl).toString();
+const imageUrl = new URL("/images/android-chrome-512x512.png", profile.siteUrl).toString();
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -23,7 +24,6 @@ const personSchema = {
   alternateName: profile.nativeName,
   description,
   url: profile.siteUrl,
-  image: imageUrl,
   email: `mailto:${profile.email}`,
   jobTitle: profile.jobTitle,
   address: {
@@ -51,19 +51,22 @@ const personSchema = {
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:alt" content="JG — Jiasheng Gu" />
     <meta property="og:locale" content="en_US" />
 
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={imageUrl} />
+    <meta name="twitter:image:alt" content="JG — Jiasheng Gu" />
 
-    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png" />
-    <link rel="icon" href="/images/favicon.ico" />
-    <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#f7f3ec" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=jg-1" />
+    <link rel="icon" href="/images/favicon.ico?v=jg-1" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=jg-1" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=jg-1" />
+    <link rel="icon" type="image/svg+xml" sizes="any" href="/images/favicon.svg?v=jg-1" />
+    <link rel="manifest" href="/site.webmanifest?v=jg-1" />
+    <meta name="theme-color" content="#f4f5f6" />
 
     <script is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
   </head>

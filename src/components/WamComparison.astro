@@ -1,0 +1,677 @@
+---
+type Pt = [number, number];
+type Pose = { w: Pt; e: Pt; open: boolean; cube: Pt };
+type Step = {
+  t: string;
+  pose: Pose;
+  prev: Pose;
+  move: [Pt, Pt];
+  delta: Pt;
+  grip: [boolean, boolean];
+  word: string;
+  worldLabel: string;
+  actLabel: string;
+};
+
+const SHOULDER: Pt = [14, 58];
+const INK = '#2b3138';
+const ACCENT = '#2f5038';
+const CUBE = '#c4553a';
+const MONO = "'IBM Plex Mono', monospace";
+const PAPER = 'https://arxiv.org/html/2602.15922v1';
+
+const poses: Pose[] = [
+  { w: [46, 44], e: [11.2, 8], open: true, cube: [39, 70] },
+  { w: [46, 62], e: [35.9, 13.1], open: false, cube: [39, 70] },
+  { w: [80, 30], e: [33.4, 11.9], open: false, cube: [73, 38] },
+  { w: [104, 40], e: [55.1, 29.6], open: true, cube: [97, 60] },
+];
+
+const r1 = (n: number) => Math.round(n * 10) / 10;
+
+const arrow = (from: Pt, to: Pt, size: number) => {
+  const dx = to[0] - from[0];
+  const dy = to[1] - from[1];
+  const len = Math.hypot(dx, dy);
+  const ux = dx / len;
+  const uy = dy / len;
+  const bx = to[0] - ux * size;
+  const by = to[1] - uy * size;
+  const px = -uy * size * 0.55;
+  const py = ux * size * 0.55;
+  return {
+    d: `M${r1(from[0])} ${r1(from[1])}L${r1(to[0] - ux * size * 0.7)} ${r1(to[1] - uy * size * 0.7)}`,
+    head: `${r1(to[0])},${r1(to[1])} ${r1(bx + px)},${r1(by + py)} ${r1(bx - px)},${r1(by - py)}`,
+  };
+};
+
+const cube = ([x, y]: Pt) =>
+  `<rect x="${x}" y="${y}" width="14" height="14" rx="1.5" fill="${CUBE}"/>` +
+  `<rect x="${x}" y="${y}" width="14" height="3.5" rx="1.5" fill="#dc7d62"/>`;
+
+const robot = ({ w, e, open }: Pose) => {
+  const [x, y] = w;
+  const o = open ? 14 : 10;
+  const limb = `M${SHOULDER[0]} ${SHOULDER[1]}L${e[0]} ${e[1]}L${x} ${y}`;
+  return [
+    `<path d="${limb}" fill="none" stroke="${INK}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>`,
+    `<path d="${limb}" fill="none" stroke="#66707b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>`,
+    `<rect x="${x - 3}" y="${y - 4}" width="6" height="7" rx="1" fill="${INK}"/>`,
+    `<rect x="${x - o}" y="${y + 2}" width="${o * 2}" height="4" rx="1" fill="${INK}"/>`,
+    `<rect x="${x - o}" y="${y + 5}" width="3" height="13" rx="1" fill="${INK}"/>`,
+    `<rect x="${x + o - 3}" y="${y + 5}" width="3" height="13" rx="1" fill="${INK}"/>`,
+    `<circle cx="${SHOULDER[0]}" cy="${SHOULDER[1]}" r="4.2" fill="#f4f5f6" stroke="${INK}" stroke-width="1.6"/>`,
+    `<circle cx="${e[0]}" cy="${e[1]}" r="3.6" fill="#f4f5f6" stroke="${INK}" stroke-width="1.6"/>`,
+  ].join('');
+};
+
+const scene = (pose: Pose, prev?: Pose, move?: [Pt, Pt]) => {
+  const inBowl = pose.cube[0] > 90;
+  const lifted = !inBowl && pose.cube[1] + 14 < 84;
+  const trail = move ? arrow(move[0], move[1], 5) : undefined;
+  return [
+    `<rect width="160" height="110" fill="#f8f7f3"/>`,
+    `<rect y="84" width="160" height="26" fill="#e7e0d2"/>`,
+    `<path d="M0 84.5H160" stroke="#cbbfa8"/>`,
+    `<rect x="2" y="80" width="24" height="5" rx="1" fill="${INK}"/>`,
+    `<rect x="8" y="58" width="12" height="24" rx="2" fill="#3d454e"/>`,
+    `<ellipse cx="104" cy="68" rx="20" ry="4.5" fill="#cad5df" stroke="#3f5870" stroke-width="1.2"/>`,
+    inBowl ? cube(pose.cube) : '',
+    `<path d="M84 68A20 4.5 0 0 0 124 68C122 89 86 89 84 68Z" fill="#5f7d98" stroke="#3f5870" stroke-width="1.2" stroke-linejoin="round"/>`,
+    lifted ? `<ellipse cx="${pose.cube[0] + 7}" cy="86.5" rx="8" ry="1.6" fill="#000" opacity=".13"/>` : '',
+    prev
+      ? `<g opacity=".2">${prev.cube.join() !== pose.cube.join() ? cube(prev.cube) : ''}${robot(prev)}</g>`
+      : '',
+    trail
+      ? `<path d="${trail.d}" fill="none" stroke="${ACCENT}" stroke-width="1.6" stroke-dasharray="3 2.4" stroke-linecap="round"/><polygon points="${trail.head}" fill="${ACCENT}"/>`
+      : '',
+    inBowl ? '' : cube(pose.cube),
+    robot(pose),
+  ].join('');
+};
+
+const gripIcon = (cx: number, open: boolean) => {
+  const cy = 34;
+  const o = open ? 9 : 6;
+  return [
+    `<rect x="${cx - 1.5}" y="${cy - 10}" width="3" height="6" fill="${INK}"/>`,
+    `<rect x="${cx - o}" y="${cy - 5}" width="${o * 2}" height="3" rx="1" fill="${INK}"/>`,
+    `<rect x="${cx - o}" y="${cy - 3}" width="3" height="14" rx="1" fill="${INK}"/>`,
+    `<rect x="${cx + o - 3}" y="${cy - 3}" width="3" height="14" rx="1" fill="${INK}"/>`,
+    open ? '' : `<rect x="${cx - 3}" y="${cy + 2}" width="6" height="6" rx="1" fill="${CUBE}"/>`,
+  ].join('');
+};
+
+const action = (delta: Pt, grip: [boolean, boolean], word: string) => {
+  const len = Math.hypot(delta[0], delta[1]);
+  const move = arrow([40, 44], [40 + (delta[0] / len) * 24, 44 + (delta[1] / len) * 24], 8);
+  const step = arrow([109, 36], [125, 36], 5);
+  return [
+    `<rect width="160" height="110" fill="#fff"/>`,
+    `<rect x="8" y="12" width="64" height="64" rx="5" fill="#edf3ee"/>`,
+    `<path d="M40 18V70M14 44H66" stroke="#cfdcd2"/>`,
+    `<circle cx="40" cy="44" r="3" fill="${ACCENT}" opacity=".35"/>`,
+    `<path d="${move.d}" fill="none" stroke="${ACCENT}" stroke-width="3" stroke-linecap="round"/>`,
+    `<polygon points="${move.head}" fill="${ACCENT}"/>`,
+    `<rect x="80" y="12" width="74" height="64" rx="5" fill="#edf3ee"/>`,
+    gripIcon(97, grip[0]),
+    `<path d="${step.d}" fill="none" stroke="${ACCENT}" stroke-width="1.6" stroke-linecap="round"/>`,
+    `<polygon points="${step.head}" fill="${ACCENT}"/>`,
+    gripIcon(137, grip[1]),
+    `<text x="117" y="67" text-anchor="middle" font-family="${MONO}" font-size="11" fill="${ACCENT}">${word}</text>`,
+    `<text x="40" y="97" text-anchor="middle" font-family="${MONO}" font-size="12" fill="#606872">move</text>`,
+    `<text x="117" y="97" text-anchor="middle" font-family="${MONO}" font-size="12" fill="#606872">gripper</text>`,
+  ].join('');
+};
+
+const steps: Step[] = [
+  {
+    t: 't+1',
+    pose: poses[1],
+    prev: poses[0],
+    move: [[68, 46], [68, 66]],
+    delta: [0, 1],
+    grip: [true, false],
+    word: 'close',
+    worldLabel: 'Predicted frame t+1: the gripper has lowered and closed around the cube.',
+    actLabel: 'Action t+1: move down and close the gripper.',
+  },
+  {
+    t: 't+2',
+    pose: poses[2],
+    prev: poses[1],
+    move: [[58, 62], [68, 44]],
+    delta: [34, -32],
+    grip: [false, false],
+    word: 'hold',
+    worldLabel: 'Predicted frame t+2: the cube is lifted and carried toward the bowl.',
+    actLabel: 'Action t+2: move up and right while keeping the gripper closed.',
+  },
+  {
+    t: 't+3',
+    pose: poses[3],
+    prev: poses[2],
+    move: [[76, 60], [94, 60]],
+    delta: [24, 10],
+    grip: [false, true],
+    word: 'open',
+    worldLabel: 'Predicted frame t+3: the cube has dropped into the bowl and the gripper is open.',
+    actLabel: 'Action t+3: move right over the bowl and open the gripper.',
+  },
+];
+
+const nowFrame = scene(poses[0]);
+const pairs = steps.map((s) => ({ ...s, frame: scene(s.pose, s.prev, s.move), act: action(s.delta, s.grip, s.word) }));
+const tokens = Array.from({ length: 9 }, (_, i) => (i % 3 === 2 ? 'a' : 'v'));
+---
+
+<figure class="wam" data-wam>
+  <div class="head">
+    <div class="title-row">
+      <h3 class="title">Joint video–action prediction</h3>
+      <span class="badge">Conceptual schematic</span>
+    </div>
+    <p class="lede">
+      From what the robot sees, its state and an instruction, <strong>one model</strong> predicts
+      <strong>how the scene will change</strong> and <strong>the actions that make it change</strong>, step for step.
+    </p>
+  </div>
+
+  <div class="body">
+    <div class="stage">
+      <div class="inputs">
+        <p class="chip ins"><span class="k">instruction</span><span class="v">“Put the cube in the bowl”</span></p>
+        <p class="chip st"><span class="k">robot state</span><span class="v">joint angles, gripper</span></p>
+        <div class="now">
+          <span class="k">camera · now</span>
+          <svg
+            class="frame"
+            viewBox="0 0 160 110"
+            role="img"
+            aria-label="Current camera view: the robot's open gripper above a red cube on the table, with a bowl to the right."
+            set:html={nowFrame}
+          ></svg>
+        </div>
+      </div>
+
+      <span class="flow" aria-hidden="true"></span>
+
+      <div class="model">
+        <span class="tokens" aria-hidden="true">{tokens.map((k) => <i class={`tok ${k}`} />)}</span>
+        <span class="model-text">
+          <span class="model-name">One world action model</span>
+          <span class="model-sub">shared backbone · joint denoising</span>
+        </span>
+      </div>
+
+      <span class="flow" aria-hidden="true"></span>
+
+      <div class="future">
+        <div class="f-head">
+          <p class="f-title">Predicted together</p>
+          <p class="legend">
+            <span><i class="sw"></i>video</span>
+            <span><i class="sw a"></i>actions</span>
+          </p>
+        </div>
+        <ol class="pairs">
+          {pairs.map((s) => (
+            <li class="pair">
+              <p class="t">{s.t}</p>
+              <div class="cell world">
+                <svg viewBox="0 0 160 110" role="img" aria-label={s.worldLabel} set:html={s.frame}></svg>
+              </div>
+              <div class="cell act">
+                <svg viewBox="0 0 160 110" role="img" aria-label={s.actLabel} set:html={s.act}></svg>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+
+    <p class="loop"><span class="loop-text"><span>execute actions → observe → repeat</span></span></p>
+  </div>
+
+  <figcaption class="cap">
+    Conceptual illustration, not a model rollout. Motion and gripper glyphs represent action outputs.
+    <a href={`${PAPER}#S2.F4`} target="_blank" rel="noopener noreferrer">Architecture</a> ·
+    <a href={`${PAPER}#S1.F2`} target="_blank" rel="noopener noreferrer">Real example</a>.
+  </figcaption>
+</figure>
+
+<style>
+  .wam {
+    container-type: inline-size;
+    margin: 1.75rem 0 1.5rem;
+    color: var(--body-ink, #353b44);
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  }
+
+  .head {
+    margin-bottom: 1rem;
+  }
+
+  .title-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.35rem 0.75rem;
+  }
+
+  .title {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--ink, #0f1216);
+  }
+
+  .badge {
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--accent-strong, #2f5038);
+    border: 1px solid currentColor;
+    border-radius: 3px;
+    padding: 0.05rem 0.4rem;
+  }
+
+  .lede {
+    margin: 0.4rem 0 0;
+    max-width: 38em;
+    font-size: 0.95rem;
+    line-height: 1.45;
+  }
+
+  .lede strong {
+    color: var(--ink, #0f1216);
+    font-weight: 600;
+  }
+
+  .body {
+    position: relative;
+  }
+
+  .stage {
+    display: grid;
+    grid-template-columns: 132px 22px 80px 22px minmax(0, 1fr);
+    align-items: center;
+  }
+
+  .inputs {
+    align-self: end;
+    display: grid;
+    gap: 6px;
+  }
+
+  .chip {
+    margin: 0;
+    display: grid;
+    gap: 2px;
+    padding: 6px 8px;
+    background: #fff;
+    border: 1px solid var(--line, #d8dce1);
+    border-radius: 6px;
+  }
+
+  .k {
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    color: var(--muted, #606872);
+  }
+
+  .v {
+    font-size: 0.8rem;
+    line-height: 1.3;
+    color: var(--ink, #0f1216);
+  }
+
+  .now {
+    display: grid;
+    gap: 3px;
+  }
+
+  .frame {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--line, #d8dce1);
+    border-radius: 4px;
+  }
+
+  .flow {
+    position: relative;
+    height: 1.5px;
+    margin: 0 7px 0 3px;
+    background: #8b939c;
+  }
+
+  .flow::after {
+    content: '';
+    position: absolute;
+    right: -6px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-top: 4.5px solid transparent;
+    border-bottom: 4.5px solid transparent;
+    border-left: 6px solid #8b939c;
+  }
+
+  .model {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 6px;
+    background: var(--accent-strong, #2f5038);
+    color: #fff;
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  .tokens {
+    display: grid;
+    grid-template-rows: repeat(3, 10px);
+    grid-auto-flow: column;
+    grid-auto-columns: 10px;
+    gap: 3px;
+  }
+
+  .tok {
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    background: #c9d5e0;
+  }
+
+  .tok.a {
+    border-radius: 50%;
+    background: #a9d6b3;
+  }
+
+  .model-text {
+    display: grid;
+    gap: 6px;
+  }
+
+  .model-name {
+    font-size: 0.86rem;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .model-sub {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    line-height: 1.35;
+    color: #cfe0d3;
+  }
+
+  .future {
+    background: #fff;
+    border: 1px solid var(--line, #d8dce1);
+    border-radius: 8px;
+    padding: 10px;
+  }
+
+  .f-head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 4px 12px;
+    margin-bottom: 8px;
+  }
+
+  .f-title {
+    margin: 0;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--ink, #0f1216);
+  }
+
+  .legend {
+    margin: 0;
+    display: flex;
+    gap: 12px;
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    color: var(--muted, #606872);
+  }
+
+  .sw {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin-right: 5px;
+    border-radius: 1px;
+    background: #5f7d98;
+  }
+
+  .sw.a {
+    border-radius: 50%;
+    background: var(--accent-strong, #2f5038);
+  }
+
+  .pairs {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .pair {
+    display: grid;
+    gap: 4px;
+    padding: 4px;
+    background: #f3f5f6;
+    border-radius: 6px;
+  }
+
+  .t {
+    margin: 0;
+    padding-left: 2px;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--muted, #606872);
+  }
+
+  .cell {
+    position: relative;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid var(--line, #d8dce1);
+    border-radius: 4px;
+  }
+
+  .cell.world {
+    border-top: 3px solid #5f7d98;
+  }
+
+  .cell.act {
+    border-top: 3px solid var(--accent-strong, #2f5038);
+  }
+
+  .cell svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .loop {
+    position: relative;
+    height: 30px;
+    margin: 10px 0 0;
+  }
+
+  .loop::before {
+    content: '';
+    position: absolute;
+    left: 66px;
+    right: calc((100% - 256px) / 2);
+    top: 0;
+    height: 20px;
+    border: 1.5px solid var(--accent-strong, #2f5038);
+    border-top: 0;
+    border-radius: 0 0 10px 10px;
+  }
+
+  .loop::after {
+    content: '';
+    position: absolute;
+    left: 61.75px;
+    top: -7px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 7px solid var(--accent-strong, #2f5038);
+  }
+
+  .loop-text {
+    position: absolute;
+    left: 66px;
+    right: calc((100% - 256px) / 2);
+    top: 20px;
+    transform: translateY(-50%);
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    line-height: 1.4;
+    color: var(--accent-strong, #2f5038);
+  }
+
+  .loop-text span {
+    padding: 0 8px;
+    background: var(--bg, #f4f5f6);
+  }
+
+  .cap {
+    margin-top: 10px;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    line-height: 1.55;
+    color: var(--muted, #606872);
+  }
+
+  .cap a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  @container (max-width: 619px) {
+    .stage {
+      grid-template-columns: minmax(0, 1fr);
+      padding-left: 22px;
+    }
+
+    .inputs {
+      align-self: auto;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      grid-template-areas:
+        'now ins'
+        'now st';
+      align-items: start;
+      column-gap: 8px;
+    }
+
+    .now {
+      grid-area: now;
+    }
+
+    .ins {
+      grid-area: ins;
+    }
+
+    .st {
+      grid-area: st;
+    }
+
+    .flow {
+      justify-self: center;
+      width: 1.5px;
+      height: 16px;
+      margin: 6px 0 12px;
+    }
+
+    .flow::after {
+      right: auto;
+      top: auto;
+      left: 50%;
+      bottom: -6px;
+      transform: translateX(-50%);
+      border: 0;
+      border-left: 4.5px solid transparent;
+      border-right: 4.5px solid transparent;
+      border-top: 6px solid #8b939c;
+    }
+
+    .model {
+      flex-direction: row;
+      gap: 14px;
+      padding: 10px 14px;
+      text-align: left;
+    }
+
+    .model-text {
+      gap: 3px;
+    }
+
+    .pairs {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .pair {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      column-gap: 6px;
+    }
+
+    .t {
+      grid-column: 1 / -1;
+    }
+
+    .loop {
+      position: static;
+      height: auto;
+      margin: 10px 0 0;
+      padding-left: 22px;
+    }
+
+    .loop::before {
+      left: 3px;
+      right: auto;
+      top: 56px;
+      bottom: 8px;
+      width: 12px;
+      height: auto;
+      border: 1.5px solid var(--accent-strong, #2f5038);
+      border-right: 0;
+      border-radius: 10px 0 0 10px;
+    }
+
+    .loop::after {
+      left: 15px;
+      top: 51.5px;
+      border: 0;
+      border-top: 4.5px solid transparent;
+      border-bottom: 4.5px solid transparent;
+      border-left: 7px solid var(--accent-strong, #2f5038);
+    }
+
+    .loop-text {
+      position: static;
+      transform: none;
+      text-align: left;
+    }
+
+    .loop-text span {
+      padding: 0;
+      background: none;
+    }
+  }
+</style>

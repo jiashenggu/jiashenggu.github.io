@@ -1,0 +1,39 @@
+<figure class="work-diagram">
+<div
+  class="schematic-plate dagger-plate"
+  role="img"
+  aria-label="DAgger workflow schematic. Online: collect robot rollouts, annotate, update the policy, and repeat. Offline: aggregate demonstrations and takeover trajectories, weight the data, then train."
+>
+  <div class="dagger-lanes" aria-hidden="true">
+    <div class="dagger-lane">
+      <span class="lane-label">Online</span>
+      <div class="lane-flow online-flow">
+        <div class="process-step"><span class="data-node"></span><span>Collect</span></div>
+        <div class="process-step"><span class="human-node"></span><span>Annotate</span></div>
+        <div class="process-step"><span class="policy-node"></span><span>Update</span></div>
+        <span class="return-loop"></span>
+      </div>
+    </div>
+    <div class="dagger-lane">
+      <span class="lane-label">Offline</span>
+      <div class="lane-flow offline-flow">
+        <div class="process-step">
+          <span class="data-stack"><i></i><i></i><i class="human-sample"></i><i></i></span>
+          <span>Aggregate</span>
+        </div>
+        <div class="process-step">
+          <span class="data-stack weighted-stack"><i></i><i></i><i class="human-sample"></i><i></i></span>
+          <span>Weight</span>
+        </div>
+        <div class="process-step"><span class="policy-node"></span><span>Train</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<figcaption class="diagram-key">
+  <span>Schematic</span>
+  <span><i class="legend-data" aria-hidden="true"></i> Rollouts</span>
+  <span><i class="legend-human" aria-hidden="true"></i> Human input</span>
+  <span><i class="legend-policy" aria-hidden="true"></i> Policy</span>
+</figcaption>
+</figure>

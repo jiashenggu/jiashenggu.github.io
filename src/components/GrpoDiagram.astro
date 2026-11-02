@@ -1,0 +1,399 @@
+---
+---
+
+<figure class="grpo-int">
+  <div class="frame">
+    <p class="sr-only">
+      A round plan sets tasks, contexts and configurable budgets for two
+      collectors. Simulation collects grouped rollout windows. A physical robot
+      waits for an operator Start and records complete attempts. An admission
+      gate passes only valid, scored, version-matched and group-matched data to one shared
+      GRPO learner with a single algorithm state, running from dataset to
+      trainer. The learner publishes a versioned policy, and the next round
+      starts after workers adopt it. The learner also saves and resumes from
+      checkpoints that carry round and training statistics.
+    </p>
+
+    <div class="flow" aria-hidden="true">
+      <!-- Round plan (receives the policy return) -->
+      <i class="g g-in"></i>
+      <div class="node int full">
+        <strong>Round plan</strong>
+        <span>tasks · contexts · budgets</span>
+      </div>
+
+      <i class="g"></i>
+      <div class="fork full"><i class="ah l"></i><i class="ah r"></i></div>
+
+      <!-- Collectors -->
+      <i class="g"></i>
+      <div class="node bk a">
+        <strong>Simulation</strong>
+        <span>grouped windows</span>
+      </div>
+      <div class="node bk b">
+        <strong>Physical robot</strong>
+        <span>operator Start</span>
+        <span>complete attempts</span>
+      </div>
+
+      <i class="g"></i>
+      <div class="merge full"><i class="ah m"></i></div>
+
+      <!-- Admission -->
+      <i class="g"></i>
+      <div class="node int full">
+        <strong>Admission gate</strong>
+        <span>valid · scored · version · group</span>
+      </div>
+
+      <i class="g"></i>
+      <div class="drop full"><i class="ah m acc"></i></div>
+
+      <!-- Shared learner -->
+      <i class="g"></i>
+      <div class="node learn full">
+        <strong>Shared GRPO learner</strong>
+        <span>one state · dataset → trainer</span>
+      </div>
+
+      <i class="g"></i>
+      <div class="pair full">
+        <i class="ah l acc"></i><i class="ah r up"></i><i class="ah r"></i>
+      </div>
+
+      <!-- Outputs -->
+      <i class="g"></i>
+      <div class="node pol a">
+        <strong>Policy vN+1</strong>
+        <span>published</span>
+      </div>
+      <div class="node ckpt b">
+        <strong>Checkpoint</strong>
+        <span>round + train state</span>
+      </div>
+
+      <!-- Versioned policy return -->
+      <i class="g g-out"></i>
+      <div class="ret full">next round after adoption</div>
+    </div>
+  </div>
+
+  <figcaption>Collection-to-training integration</figcaption>
+</figure>
+
+<style>
+  .grpo-int {
+    margin: 0;
+  }
+
+  .frame {
+    position: relative;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    background: #fff;
+    padding: 10px;
+  }
+
+  .flow {
+    --gap: 8px;
+    --gut: 14px;
+    --cx: calc((100% - var(--gap)) / 4);
+    --acc: var(--accent-strong);
+    display: grid;
+    grid-template-columns: var(--gut) minmax(0, 1fr) var(--gap) minmax(0, 1fr);
+    font-family: var(--mono);
+  }
+
+  .flow *,
+  .flow *::before,
+  .flow *::after {
+    box-sizing: border-box;
+  }
+
+  .full {
+    grid-column: 2 / 5;
+  }
+
+  .a {
+    grid-column: 2;
+  }
+
+  .b {
+    grid-column: 4;
+  }
+
+  /* Nodes */
+  .node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1px;
+    min-width: 0;
+    padding: 6px 8px;
+    text-align: center;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    background: #fff;
+    overflow-wrap: anywhere;
+  }
+
+  .node.a,
+  .node.b {
+    padding-inline: 6px;
+  }
+
+  .node strong {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--ink);
+  }
+
+  .node span {
+    font-size: 11px;
+    line-height: 1.3;
+    color: var(--muted);
+    text-wrap: balance;
+  }
+
+  .int {
+    border: 1.5px solid var(--acc);
+  }
+
+  .bk {
+    background: #f4f5f3;
+  }
+
+  .learn {
+    border: 1.5px solid var(--acc);
+    background: rgba(47, 80, 56, 0.05);
+  }
+
+  .pol {
+    border: 1.5px solid var(--acc);
+    background: var(--acc);
+  }
+
+  .pol strong {
+    color: #fff;
+  }
+
+  .pol span {
+    color: rgba(255, 255, 255, 0.82);
+  }
+
+  .ckpt {
+    border: 1.5px dashed var(--acc);
+  }
+
+  /* Policy-return gutter */
+  .g {
+    grid-column: 1;
+    position: relative;
+  }
+
+  .g::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(50% - 0.75px);
+    border-left: 1.5px solid var(--acc);
+  }
+
+  .g-in::before {
+    top: 50%;
+    right: 0;
+    margin-top: -0.75px;
+    border-top: 1.5px solid var(--acc);
+  }
+
+  .g-in::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    border-top: 3.5px solid transparent;
+    border-bottom: 3.5px solid transparent;
+    border-left: 5px solid var(--acc);
+    transform: translateY(-50%);
+  }
+
+  .g-out::before {
+    bottom: 50%;
+    right: 0;
+    margin-bottom: -0.75px;
+    border-bottom: 1.5px solid var(--acc);
+  }
+
+  .ret {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 24px;
+    padding-left: calc(var(--cx) + 8px);
+    font-size: 11px;
+    line-height: 1.3;
+    color: var(--acc);
+  }
+
+  .ret::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 50%;
+    margin-bottom: -0.75px;
+    width: calc(var(--cx) + 0.75px);
+    border-right: 1.5px solid var(--acc);
+    border-bottom: 1.5px solid var(--acc);
+  }
+
+  /* Connectors */
+  .fork,
+  .merge,
+  .drop,
+  .pair {
+    position: relative;
+  }
+
+  .fork,
+  .merge {
+    height: 14px;
+  }
+
+  .drop {
+    height: 12px;
+  }
+
+  .pair {
+    height: 16px;
+  }
+
+  .fork::before,
+  .fork::after,
+  .merge::before,
+  .merge::after,
+  .drop::before,
+  .pair::before,
+  .pair::after {
+    content: "";
+    position: absolute;
+  }
+
+  .fork::before {
+    left: calc(50% - 0.5px);
+    top: 0;
+    height: 5px;
+    border-left: 1px solid var(--muted);
+  }
+
+  .fork::after {
+    top: 4px;
+    bottom: 5px;
+    left: calc(var(--cx) - 0.5px);
+    right: calc(var(--cx) - 0.5px);
+    border: 1px solid var(--muted);
+    border-bottom: 0;
+  }
+
+  .merge::before {
+    top: 0;
+    height: 6px;
+    left: calc(var(--cx) - 0.5px);
+    right: calc(var(--cx) - 0.5px);
+    border: 1px solid var(--muted);
+    border-top: 0;
+  }
+
+  .merge::after {
+    left: calc(50% - 0.5px);
+    top: 5px;
+    bottom: 5px;
+    border-left: 1px solid var(--muted);
+  }
+
+  .drop::before {
+    left: calc(50% - 0.75px);
+    top: 0;
+    bottom: 5px;
+    border-left: 1.5px solid var(--acc);
+  }
+
+  .pair::before {
+    left: calc(var(--cx) - 0.75px);
+    top: 0;
+    bottom: 5px;
+    border-left: 1.5px solid var(--acc);
+  }
+
+  .pair::after {
+    left: calc(100% - var(--cx) - 0.5px);
+    top: 5px;
+    bottom: 5px;
+    border-left: 1px dashed var(--muted);
+  }
+
+  .ah {
+    position: absolute;
+    bottom: 0;
+    left: var(--x);
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid var(--muted);
+    transform: translateX(-50%);
+  }
+
+  .ah.l {
+    --x: var(--cx);
+  }
+
+  .ah.m {
+    --x: 50%;
+  }
+
+  .ah.r {
+    --x: calc(100% - var(--cx));
+  }
+
+  .ah.acc {
+    border-top-color: var(--acc);
+  }
+
+  .ah.up {
+    top: 0;
+    bottom: auto;
+    border-top: 0;
+    border-bottom: 5px solid var(--muted);
+  }
+
+  figcaption {
+    margin-top: 8px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (max-width: 340px) {
+    .frame {
+      padding: 8px 6px;
+    }
+  }
+</style>

@@ -1,0 +1,97 @@
+---
+const platforms = [
+  {
+    name: "Galaxea R1 Pro",
+    image: "/images/platform-r1-pro.webp",
+    alt: "Galaxea R1 Pro product reference image",
+    width: 185,
+    height: 360,
+  },
+  {
+    name: "Spirit AI Moz1",
+    drawing: true,
+    image: "/images/platform-moz1.webp",
+    alt: "Spirit AI Moz1 front-view drawing from its hardware documentation",
+    width: 132,
+    height: 360,
+  },
+  {
+    name: "AgiBot",
+    image: null,
+    alt: "",
+    width: 0,
+    height: 0,
+  },
+  {
+    name: "YAM",
+    image: "/images/platform-yam.webp",
+    alt: "YAM arms in an I2RT teleoperation-station product reference image",
+    width: 360,
+    height: 233,
+  },
+];
+---
+
+<div class="schematic-plate robot-plate">
+  <div class="adapter-flow">
+    <div class="platform-strip" aria-label="Robot platforms">
+      {platforms.map((platform) => (
+        <div class:list={["platform-reference", { "platform-drawing": "drawing" in platform && platform.drawing }]}>
+          <div class="platform-image">
+            {platform.image ? (
+              <img src={platform.image} alt={platform.alt} width={platform.width} height={platform.height} loading="lazy" decoding="async" />
+            ) : (
+              <span class="platform-wordmark" aria-hidden="true">AGIBOT</span>
+            )}
+          </div>
+          <span class="platform-name">{platform.name}</span>
+        </div>
+      ))}
+    </div>
+    <div class="converging-bracket" aria-hidden="true"></div>
+    <div class="adapter-band" role="group" aria-label="Adapted interfaces">
+      <span title="Camera and robot-state mappings">Sensors</span>
+      <span title="Action and gripper conventions">Actions</span>
+      <span title="Dataset formats and environment adapters">Data</span>
+    </div>
+    <div class="adapter-policy">
+      <span class="adapter-arrow" aria-hidden="true">↓</span>
+      <span class="policy-node" aria-hidden="true"></span>
+      <span>Policy interface</span>
+    </div>
+  </div>
+  <div
+    class="rtc-schematic"
+    role="img"
+    aria-label="Training-time RTC schematic. Training samples a delay d: the action prefix stays clean, the suffix is noised, and the prefix is excluded from the denoising loss. At runtime, the pending action prefix is held fixed during inference while the policy generates the continuation."
+  >
+    <div aria-hidden="true">
+      <p class="rtc-heading">Training-time RTC</p>
+      <div class="rtc-delay-axis">
+        <span class="rtc-prefix-bracket"><span>Sample delay d</span></span>
+      </div>
+      <div class="rtc-row">
+        <span class="rtc-row-label">Train</span>
+        <div class="rtc-chunk">
+          <span class="rtc-prefix">Clean</span>
+          <span class="rtc-noisy">Noisy suffix</span>
+        </div>
+      </div>
+      <div class="rtc-row rtc-loss-row">
+        <span class="rtc-row-label">Loss</span>
+        <div class="rtc-chunk">
+          <span class="rtc-masked">Masked</span>
+          <span class="rtc-loss">Suffix only</span>
+        </div>
+      </div>
+      <div class="rtc-row rtc-run-row">
+        <span class="rtc-row-label">Run</span>
+        <div class="rtc-chunk">
+          <span class="rtc-prefix">Queued</span>
+          <span class="rtc-predicted">New actions</span>
+        </div>
+      </div>
+      <p class="rtc-note">Fixed prefix → predicted suffix</p>
+    </div>
+  </div>
+</div>

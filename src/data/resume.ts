@@ -1,43 +1,14 @@
 export const education = [
   {
-    degree: "Master",
-    field: "",
+    degree: "M.S. in Electrical and Computer Engineering (Machine Learning and Data Science)",
     institution: "University of Southern California",
-    location: "Shanghai",
-    period: "2021.08 - 2023.05",
-    detail: "GPA: 4.0/4.0",
+    period: "Aug. 2021 - May 2023",
   },
   {
-    degree: "Bachelor",
-    field: "Telecommunication Engineering",
+    degree: "B.E. in Telecommunications Engineering",
     institution: "Xidian University",
-    location: "Xi'an, China",
-    period: "2017.09 - 2021.06",
-    detail: "GPA: 3.6/4.0",
+    period: "Sep. 2017 - Jun. 2021",
   },
-] as const;
-
-export const honors = [
-  {
-    title: "Masters Students Honors Program",
-    organization: "University of Southern California",
-    date: "2021.12",
-    detail: "GPA: 4.0",
-  },
-  {
-    title: "National Scholarship",
-    organization: "Xidian University",
-    date: "2018.01",
-    detail: "Top 10%",
-  },
-] as const;
-
-export const services = [
-  "ACM International Conference on Web Search and Data Mining (WSDM) 2023",
-  "The European Chapter of the ACL (EACL) 2023",
-  "Association for Computational Linguistics (ACL) 2023",
-  "Conference on Empirical Methods in Natural Language Processing (EMNLP) 2023",
-  "The Association for the Advancement of Artificial Intelligence (AAAI) 2023",
 ] as const;
 
 export const workExperience = [
@@ -47,7 +18,30 @@ export const workExperience = [
     href: "https://www.nvidia.com/",
     location: "Shanghai, China · On-site",
     period: "Sep. 2025 - Present",
-    detail: "Robotic foundation models, LLM/VLM systems, and embodied AI.",
+    detail: "Generative robot policies: GRPO, online/offline DAgger and real-robot adaptation.",
+    highlights: [
+      {
+        id: "grpo",
+        title: "GRPO post-training",
+        summary: "Connected complete robot attempts to shared GRPO policy updates.",
+        detail:
+          "Robot attempts vary in length and need consistent grouping for GRPO updates. I connected complete-attempt collection to the shared training core, with leave-one-out advantages, EMA baselines and per-task return normalization. Collection quotas, optimizer-step boundaries and algorithm state are saved for continuation.",
+      },
+      {
+        id: "dagger",
+        title: "Online and offline DAgger",
+        summary: "Connected robot rollouts and human annotations to online and offline policy updates.",
+        detail:
+          "I built components that turn robot rollouts and human annotations into training data for online and offline DAgger. Online workflows connect collection to policy updates; offline iterations aggregate demonstration and takeover trajectories. Quality-weighted training, controlled sampling and fixed-data replay support comparisons of training recipes, including lighting-consistency objectives.",
+      },
+      {
+        id: "robots",
+        title: "Real-robot adaptation",
+        summary: "Adapted learned policies to the data and execution interfaces of four robot platforms.",
+        detail:
+          "Different robots expose different camera, state and action conventions. I adapted policies for Galaxea R1 Pro, Spirit AI Moz1, AgiBot and YAM through observation mappings, gripper/action conversion, dataset interfaces and environment wrappers. I integrated training-time RTC policies with asynchronous execution: training uses a clean action prefix and suffix-only denoising loss; inference fixes the pending action prefix while generating the continuation.",
+      },
+    ],
   },
   {
     role: "Algorithm Engineer",
@@ -55,7 +49,7 @@ export const workExperience = [
     href: "https://www.alibabagroup.com/",
     location: "Hangzhou, China · On-site",
     period: "Feb. 2025 - Jul. 2025",
-    detail: "Python-based algorithm engineering.",
+    detail: "Multimodal AI.",
   },
   {
     role: "Algorithm Engineer",
@@ -63,23 +57,6 @@ export const workExperience = [
     href: "https://www.01.ai/",
     location: "Hangzhou, Zhejiang, China · On-site",
     period: "Oct. 2023 - Jan. 2025",
-    detail: "Large language model systems with PyTorch.",
-  },
-] as const;
-
-export const internships = [
-  {
-    role: "MLE Intern",
-    organization: "Lime",
-    href: "https://www.li.me/",
-    location: "Remote (Los Angeles)",
-    period: "2022.05 - 2022.08",
-  },
-  {
-    role: "NLP Intern",
-    organization: "Transwarp",
-    href: "https://www.transwarp.cn/",
-    location: "Shanghai",
-    period: "2021.01 - 2021.07",
+    detail: "SDXL training; data curation and model training for Yi-VL.",
   },
 ] as const;

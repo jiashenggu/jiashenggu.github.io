@@ -6,7 +6,7 @@ This repository is an Astro-powered static academic homepage for
 ## Tech Stack
 
 - [Astro](https://astro.build/) for static rendering
-- TypeScript data modules for profile, education, honors, service, and internships
+- TypeScript data modules for profile, education, and work experience
 - GitHub Pages deployment through GitHub Actions
 - A Python Google Scholar crawler that publishes citation stats and publications to the `google-scholar-stats` branch
 
@@ -14,14 +14,15 @@ This repository is an Astro-powered static academic homepage for
 
 ```text
 src/
-  components/          Reusable Astro components
-  data/                Profile and resume data
+  components/          Work diagrams and robot platform references
+  data/                Profile, education, and work experience
   layouts/             Base HTML/SEO layout
   pages/index.astro    Homepage
-  pages/cv.astro       Web CV page
+  scripts/             Live Google Scholar citation count
   styles/global.css    Site-wide CSS
 public/
-  images/              Favicons and profile image
+  images/              Project images and site icons
+  fonts/               Self-hosted IBM Plex fonts and their OFL licenses
 google_scholar_crawler/
   main.py              Citation and publication updater
 .github/workflows/
@@ -53,11 +54,11 @@ npm audit --audit-level=moderate
 ## Content Updates
 
 - Profile and links: `src/data/profile.ts`
-- Web CV content: `src/data/cv.ts`
-- Publications: Google Scholar is the source of truth. Update the Scholar profile, then run the Google Scholar workflow.
-- Education, honors, service, internships: `src/data/resume.ts`
-- Page layout/content: `src/pages/index.astro` and `src/pages/cv.astro`
-- Styling: `src/styles/global.css`
+- Homepage research case studies: `src/pages/index.astro`. The homepage shows selected work and links to the complete publication list on Google Scholar.
+- Education and work experience: `src/data/resume.ts`
+- Current-work diagrams: `src/components/`; the complete technical descriptions remain in native expandable details.
+- Page layout/content: `src/pages/index.astro`
+- Styling: `src/styles/global.css`, `src/styles/home.css`, `src/styles/work-visuals.css`, and `src/styles/fonts.css`
 
 ## Deployment
 
@@ -79,11 +80,12 @@ SERPAPI_API_KEY=your_serpapi_private_key
 ```
 
 The workflow writes `gs_data.json` and `gs_data_shieldsio.json` to the
-`google-scholar-stats` branch. The homepage reads `gs_data.json` at runtime and
-renders the citation count and publication list from that file.
+`google-scholar-stats` branch. The homepage reads `gs_data.json` at runtime for
+the full-profile citation count. Research case studies are rendered as static
+content and remain available without JavaScript.
 
 Until the workflow succeeds at least once, the raw `gs_data.json` URL returns
-404 and the homepage shows the Google Scholar data as unavailable. The current
+404 and the homepage retains a link to the Google Scholar profile. The current
 workflow reads `GOOGLE_SCHOLAR_ID` from repository **Variables**.
 When `SERPAPI_API_KEY` is present, the crawler uses SerpApi first and falls back
 to the local `scholarly` crawler only when the SerpApi key is absent.
