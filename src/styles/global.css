@@ -7,9 +7,9 @@
   --muted: #606872;
   --line: #d8dce1;
   --line-strong: #b9c0c8;
-  --accent: #43624b;
-  --accent-strong: #2f5038;
-  --accent-soft: #e8ede3;
+  --accent: #4b5563;
+  --accent-strong: #30363d;
+  --accent-soft: #edf0f2;
   --gold: #86513c;
   --green: #43624b;
   --shadow: 0 18px 42px rgba(33, 43, 54, 0.12);
@@ -48,7 +48,7 @@ a {
 }
 
 a:hover {
-  color: var(--gold);
+  color: var(--ink);
 }
 
 a:focus-visible,

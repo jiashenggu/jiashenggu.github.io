@@ -15,7 +15,7 @@ type Step = {
 
 const SHOULDER: Pt = [14, 58];
 const INK = '#2b3138';
-const ACCENT = '#2f5038';
+const ACCENT = '#404852';
 const CUBE = '#c4553a';
 const MONO = "'IBM Plex Mono', monospace";
 const PAPER = 'https://arxiv.org/html/2602.15922v1';
@@ -108,12 +108,12 @@ const action = (delta: Pt, grip: [boolean, boolean], word: string) => {
   const step = arrow([109, 36], [125, 36], 5);
   return [
     `<rect width="160" height="110" fill="#fff"/>`,
-    `<rect x="8" y="12" width="64" height="64" rx="5" fill="#edf3ee"/>`,
-    `<path d="M40 18V70M14 44H66" stroke="#cfdcd2"/>`,
+    `<rect x="8" y="12" width="64" height="64" rx="5" fill="#f0f2f4"/>`,
+    `<path d="M40 18V70M14 44H66" stroke="#d4d9df"/>`,
     `<circle cx="40" cy="44" r="3" fill="${ACCENT}" opacity=".35"/>`,
     `<path d="${move.d}" fill="none" stroke="${ACCENT}" stroke-width="3" stroke-linecap="round"/>`,
     `<polygon points="${move.head}" fill="${ACCENT}"/>`,
-    `<rect x="80" y="12" width="74" height="64" rx="5" fill="#edf3ee"/>`,
+    `<rect x="80" y="12" width="74" height="64" rx="5" fill="#f0f2f4"/>`,
     gripIcon(97, grip[0]),
     `<path d="${step.d}" fill="none" stroke="${ACCENT}" stroke-width="1.6" stroke-linecap="round"/>`,
     `<polygon points="${step.head}" fill="${ACCENT}"/>`,
@@ -271,7 +271,7 @@ const tokens = Array.from({ length: 9 }, (_, i) => (i % 3 === 2 ? 'a' : 'v'));
     font-size: 0.66rem;
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    color: var(--accent-strong, #2f5038);
+    color: var(--muted, #606872);
     border: 1px solid currentColor;
     border-radius: 3px;
     padding: 0.05rem 0.4rem;
@@ -366,7 +366,7 @@ const tokens = Array.from({ length: 9 }, (_, i) => (i % 3 === 2 ? 'a' : 'v'));
     align-items: center;
     gap: 12px;
     padding: 12px 6px;
-    background: var(--accent-strong, #2f5038);
+    background: var(--accent-strong, #30363d);
     color: #fff;
     border-radius: 10px;
     text-align: center;
@@ -385,12 +385,12 @@ const tokens = Array.from({ length: 9 }, (_, i) => (i % 3 === 2 ? 'a' : 'v'));
     width: 10px;
     height: 10px;
     border-radius: 2px;
-    background: #c9d5e0;
+    background: #9bb5cc;
   }
 
   .tok.a {
     border-radius: 50%;
-    background: #a9d6b3;
+    background: #e2e5e9;
   }
 
   .model-text {
@@ -408,7 +408,7 @@ const tokens = Array.from({ length: 9 }, (_, i) => (i % 3 === 2 ? 'a' : 'v'));
     font-family: var(--mono);
     font-size: 0.62rem;
     line-height: 1.35;
-    color: #cfe0d3;
+    color: #d9dde2;
   }
 
   .future {
@@ -454,7 +454,7 @@ const tokens = Array.from({ length: 9 }, (_, i) => (i % 3 === 2 ? 'a' : 'v'));
 
   .sw.a {
     border-radius: 50%;
-    background: var(--accent-strong, #2f5038);
+    background: var(--accent-strong, #30363d);
   }
 
   .pairs {
@@ -495,7 +495,7 @@ const tokens = Array.from({ length: 9 }, (_, i) => (i % 3 === 2 ? 'a' : 'v'));
   }
 
   .cell.act {
-    border-top: 3px solid var(--accent-strong, #2f5038);
+    border-top: 3px solid var(--accent-strong, #30363d);
   }
 
   .cell svg {
@@ -517,7 +517,7 @@ const tokens = Array.from({ length: 9 }, (_, i) => (i % 3 === 2 ? 'a' : 'v'));
     right: calc((100% - 256px) / 2);
     top: 0;
     height: 20px;
-    border: 1.5px solid var(--accent-strong, #2f5038);
+    border: 1.5px solid var(--accent-strong, #30363d);
     border-top: 0;
     border-radius: 0 0 10px 10px;
   }
@@ -529,7 +529,7 @@ const tokens = Array.from({ length: 9 }, (_, i) => (i % 3 === 2 ? 'a' : 'v'));
     top: -7px;
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
-    border-bottom: 7px solid var(--accent-strong, #2f5038);
+    border-bottom: 7px solid var(--accent-strong, #30363d);
   }
 
   .loop-text {
@@ -542,7 +542,7 @@ const tokens = Array.from({ length: 9 }, (_, i) => (i % 3 === 2 ? 'a' : 'v'));
     font-family: var(--mono);
     font-size: 0.68rem;
     line-height: 1.4;
-    color: var(--accent-strong, #2f5038);
+    color: var(--accent-strong, #30363d);
   }
 
   .loop-text span {
@@ -649,7 +649,7 @@ const tokens = Array.from({ length: 9 }, (_, i) => (i % 3 === 2 ? 'a' : 'v'));
       bottom: 8px;
       width: 12px;
       height: auto;
-      border: 1.5px solid var(--accent-strong, #2f5038);
+      border: 1.5px solid var(--accent-strong, #30363d);
       border-right: 0;
       border-radius: 10px 0 0 10px;
     }
@@ -660,7 +660,7 @@ const tokens = Array.from({ length: 9 }, (_, i) => (i % 3 === 2 ? 'a' : 'v'));
       border: 0;
       border-top: 4.5px solid transparent;
       border-bottom: 4.5px solid transparent;
-      border-left: 7px solid var(--accent-strong, #2f5038);
+      border-left: 7px solid var(--accent-strong, #30363d);
     }
 
     .loop-text {
