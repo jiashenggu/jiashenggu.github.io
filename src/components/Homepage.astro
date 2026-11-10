@@ -129,7 +129,7 @@ const workDiagrams = { grpo: GrpoDiagram, dagger: DaggerDiagram, robots: RobotAd
           <span class="previous-label">{t("Previously", "此前经历")}</span>{" "}
           {previousRoles.map((item, index) => (
             <>
-              {index > 0 && " "}
+              {index > 0 && <span class="previous-separator" aria-hidden="true"> · </span>}
               <a href={item.href} target="_blank" rel={externalRel} title={`${item.role} · ${item.period}`}>{item.organization}</a>
               {" "}({item.years})
             </>

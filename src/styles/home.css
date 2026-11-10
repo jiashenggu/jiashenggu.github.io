@@ -244,6 +244,11 @@
   font-size: 11px;
 }
 
+.previous-separator {
+  margin: 0 4px;
+  color: var(--line-strong);
+}
+
 .research-entry + .research-entry {
   margin-top: 52px;
   padding-top: 28px;

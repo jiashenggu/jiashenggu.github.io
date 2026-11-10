@@ -38,7 +38,7 @@ export const workExperience = [
       {
         id: "dagger",
         title: "Online and offline DAgger",
-        summary: "Implemented and maintain the DAgger annotation system, supporting multi-camera trajectory review, interval-level action-quality labels and task subgoals. Built data-processing components for multi-platform LeRobot conversion, state–camera alignment and quality-aware online/offline policy training.",
+        summary: "Implemented and continue to maintain the DAgger annotation system, supporting multi-camera trajectory review, interval-level action-quality labels and task subgoals. Built data-processing components for multi-platform LeRobot conversion, state–camera alignment and quality-aware online/offline policy training.",
         technicalNotes: [
           {
             title: "Temporal alignment and trimming",
