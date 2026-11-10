@@ -1,22 +1,29 @@
 ---
+import { translateFor, type Language } from "../data/i18n";
+
+interface Props {
+  lang?: Language;
+}
+
+const t = translateFor(Astro.props.lang ?? "en");
 const platforms = [
   {
-    name: "Galaxea R1 Pro",
+    name: t("Galaxea R1 Pro", "星海图 R1 Pro"),
     image: "/images/platform-r1-pro.webp",
-    alt: "Galaxea R1 Pro product reference image",
+    alt: t("Galaxea R1 Pro product reference image", "星海图 Galaxea R1 Pro 产品参考图"),
     width: 185,
     height: 360,
   },
   {
-    name: "Spirit AI Moz1",
+    name: t("Spirit AI Moz1", "千寻智能 Moz1"),
     drawing: true,
     image: "/images/platform-moz1.webp",
-    alt: "Spirit AI Moz1 front-view drawing from its hardware documentation",
+    alt: t("Spirit AI Moz1 front-view drawing from its hardware documentation", "千寻智能 Spirit AI Moz1 硬件文档中的正视图"),
     width: 132,
     height: 360,
   },
   {
-    name: "AgiBot",
+    name: t("AgiBot", "智元 AgiBot"),
     image: null,
     alt: "",
     width: 0,
@@ -25,7 +32,7 @@ const platforms = [
   {
     name: "YAM",
     image: "/images/platform-yam.webp",
-    alt: "YAM arms in an I2RT teleoperation-station product reference image",
+    alt: t("YAM arms in an I2RT teleoperation-station product reference image", "I2RT 遥操作站产品参考图中的 YAM 机械臂"),
     width: 360,
     height: 233,
   },
@@ -34,7 +41,7 @@ const platforms = [
 
 <div class="schematic-plate robot-plate">
   <div class="adapter-flow">
-    <div class="platform-strip" aria-label="Robot platforms">
+    <div class="platform-strip" aria-label={t("Robot platforms", "机器人平台")}>
       {platforms.map((platform) => (
         <div class:list={["platform-reference", { "platform-drawing": "drawing" in platform && platform.drawing }]}>
           <div class="platform-image">
@@ -49,49 +56,49 @@ const platforms = [
       ))}
     </div>
     <div class="converging-bracket" aria-hidden="true"></div>
-    <div class="adapter-band" role="group" aria-label="Adapted interfaces">
-      <span title="Camera and robot-state mappings">Sensors</span>
-      <span title="Action and gripper conventions">Actions</span>
-      <span title="Dataset formats and environment adapters">Data</span>
+    <div class="adapter-band" role="group" aria-label={t("Adapted interfaces", "适配接口")}>
+      <span title={t("Camera and robot-state mappings", "相机与机器人状态映射")}>{t("Sensors", "观测")}</span>
+      <span title={t("Action and gripper conventions", "动作与夹爪约定")}>{t("Actions", "动作")}</span>
+      <span title={t("Dataset formats and environment adapters", "数据集格式与环境适配")}>{t("Data", "数据")}</span>
     </div>
     <div class="adapter-policy">
       <span class="adapter-arrow" aria-hidden="true">↓</span>
       <span class="policy-node" aria-hidden="true"></span>
-      <span>Policy interface</span>
+      <span>{t("Policy interface", "策略接口")}</span>
     </div>
   </div>
   <div
     class="rtc-schematic"
     role="img"
-    aria-label="Training-time RTC schematic. Training samples a delay d: the action prefix stays clean, the suffix is noised, and the prefix is excluded from the denoising loss. At runtime, the pending action prefix is held fixed during inference while the policy generates the continuation."
+    aria-label={t("Training-time RTC schematic. Training samples a delay d: the action prefix stays clean, the suffix is noised, and the prefix is excluded from the denoising loss. At runtime, the pending action prefix is held fixed during inference while the policy generates the continuation.", "训练时 RTC 示意。训练时采样延迟 d，保持动作前缀干净，对后缀加噪，前缀不计入去噪损失。运行时，推理过程中固定待执行的动作前缀，由策略生成后续动作。")}
   >
     <div aria-hidden="true">
-      <p class="rtc-heading">Training-time RTC</p>
+      <p class="rtc-heading">{t("Training-time RTC", "训练时 RTC")}</p>
       <div class="rtc-delay-axis">
-        <span class="rtc-prefix-bracket"><span>Sample delay d</span></span>
+        <span class="rtc-prefix-bracket"><span>{t("Sample delay d", "采样延迟 d")}</span></span>
       </div>
       <div class="rtc-row">
-        <span class="rtc-row-label">Train</span>
+        <span class="rtc-row-label">{t("Train", "训练")}</span>
         <div class="rtc-chunk">
-          <span class="rtc-prefix">Clean</span>
-          <span class="rtc-noisy">Noisy suffix</span>
+          <span class="rtc-prefix">{t("Clean", "干净")}</span>
+          <span class="rtc-noisy">{t("Noisy suffix", "加噪后缀")}</span>
         </div>
       </div>
       <div class="rtc-row rtc-loss-row">
-        <span class="rtc-row-label">Loss</span>
+        <span class="rtc-row-label">{t("Loss", "损失")}</span>
         <div class="rtc-chunk">
-          <span class="rtc-masked">Masked</span>
-          <span class="rtc-loss">Suffix only</span>
+          <span class="rtc-masked">{t("Masked", "屏蔽")}</span>
+          <span class="rtc-loss">{t("Suffix only", "仅后缀")}</span>
         </div>
       </div>
       <div class="rtc-row rtc-run-row">
-        <span class="rtc-row-label">Run</span>
+        <span class="rtc-row-label">{t("Run", "运行")}</span>
         <div class="rtc-chunk">
-          <span class="rtc-prefix">Queued</span>
-          <span class="rtc-predicted">New actions</span>
+          <span class="rtc-prefix">{t("Queued", "队列")}</span>
+          <span class="rtc-predicted">{t("New actions", "新动作")}</span>
         </div>
       </div>
-      <p class="rtc-note">Fixed prefix → predicted suffix</p>
+      <p class="rtc-note">{t("Fixed prefix → predicted suffix", "固定前缀 → 预测后缀")}</p>
     </div>
   </div>
 </div>

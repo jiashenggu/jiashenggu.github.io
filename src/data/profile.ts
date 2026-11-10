@@ -3,6 +3,10 @@ export const profile = {
   nativeName: "顾家盛",
   headline: "Research Engineer at NVIDIA GEAR",
   jobTitle: "Research Engineer, NVIDIA GEAR",
+  introduction: {
+    en: "I work on post-training for generative robot policies, connecting reinforcement learning, demonstration data and real-robot execution.",
+    zh: "我从事生成式机器人策略的后训练，将强化学习、示范数据与真实机器人的执行连接起来。",
+  },
   description:
     "Jiasheng Gu, NVIDIA GEAR Research Engineer, works on generative robot policies and post-training, with a background in multimodal generation and understanding.",
   location: "Shanghai",

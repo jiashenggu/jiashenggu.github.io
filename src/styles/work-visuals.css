@@ -452,6 +452,21 @@
   line-height: 1.7;
 }
 
+.work-detail-section {
+  margin: 8px 0 18px;
+  padding-left: 16px;
+  border-left: 2px solid var(--line);
+}
+
+.work-detail-section :is(h3, h4) {
+  margin: 0 0 6px;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: normal;
+  line-height: 1.5;
+}
+
 .work-figure-notes {
   margin-top: 18px;
   color: var(--muted);

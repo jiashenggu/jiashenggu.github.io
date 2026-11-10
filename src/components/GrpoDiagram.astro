@@ -1,25 +1,32 @@
 ---
+import { translateFor, type Language } from "../data/i18n";
+
+interface Props {
+  lang?: Language;
+}
+
+const t = translateFor(Astro.props.lang ?? "en");
 ---
 
 <figure class="grpo-int">
   <div class="frame">
     <p class="sr-only">
-      A round plan sets tasks, contexts and configurable budgets for two
+      {t(`A round plan sets tasks, contexts and configurable budgets for two
       collectors. Simulation collects grouped rollout windows. A physical robot
       waits for an operator Start and records complete attempts. An admission
       gate passes only valid, scored, version-matched and group-matched data to one shared
       GRPO learner with a single algorithm state, running from dataset to
       trainer. The learner publishes a versioned policy, and the next round
       starts after workers adopt it. The learner also saves and resumes from
-      checkpoints that carry round and training statistics.
+      checkpoints that carry round and training statistics.`, "每轮计划为两类采集后端设置任务、上下文和可配置的配额。仿真采集分组的轨迹窗口；真实机器人等待操作员启动，并记录完整尝试。数据准入检查仅允许有效、已评分、策略版本与分组匹配的数据进入共享 GRPO 学习器；从数据集到训练器使用同一份算法状态。学习器发布带版本号的策略，采集端加载后开始下一轮，同时通过包含轮次与训练统计的检查点保存和恢复状态。")}
     </p>
 
     <div class="flow" aria-hidden="true">
       <!-- Round plan (receives the policy return) -->
       <i class="g g-in"></i>
       <div class="node int full">
-        <strong>Round plan</strong>
-        <span>tasks · contexts · budgets</span>
+        <strong>{t("Round plan", "轮次计划")}</strong>
+        <span>{t("tasks · contexts · budgets", "任务 · 上下文 · 配额")}</span>
       </div>
 
       <i class="g"></i>
@@ -28,13 +35,13 @@
       <!-- Collectors -->
       <i class="g"></i>
       <div class="node bk a">
-        <strong>Simulation</strong>
-        <span>grouped windows</span>
+        <strong>{t("Simulation", "仿真采集")}</strong>
+        <span>{t("grouped windows", "分组轨迹窗口")}</span>
       </div>
       <div class="node bk b">
-        <strong>Physical robot</strong>
-        <span>operator Start</span>
-        <span>complete attempts</span>
+        <strong>{t("Physical robot", "真实机器人")}</strong>
+        <span>{t("operator Start", "操作员启动")}</span>
+        <span>{t("complete attempts", "完整任务尝试")}</span>
       </div>
 
       <i class="g"></i>
@@ -43,8 +50,8 @@
       <!-- Admission -->
       <i class="g"></i>
       <div class="node int full">
-        <strong>Admission gate</strong>
-        <span>valid · scored · version · group</span>
+        <strong>{t("Admission gate", "数据准入检查")}</strong>
+        <span>{t("valid · scored · version · group", "有效性 · 评分 · 版本 · 分组")}</span>
       </div>
 
       <i class="g"></i>
@@ -53,8 +60,8 @@
       <!-- Shared learner -->
       <i class="g"></i>
       <div class="node learn full">
-        <strong>Shared GRPO learner</strong>
-        <span>one state · dataset → trainer</span>
+        <strong>{t("Shared GRPO learner", "共享 GRPO 学习器")}</strong>
+        <span>{t("one state · dataset → trainer", "统一状态 · 数据集 → 训练器")}</span>
       </div>
 
       <i class="g"></i>
@@ -65,21 +72,21 @@
       <!-- Outputs -->
       <i class="g"></i>
       <div class="node pol a">
-        <strong>Policy vN+1</strong>
-        <span>published</span>
+        <strong>{t("Policy vN+1", "策略 vN+1")}</strong>
+        <span>{t("published", "发布新版本")}</span>
       </div>
       <div class="node ckpt b">
-        <strong>Checkpoint</strong>
-        <span>round + train state</span>
+        <strong>{t("Checkpoint", "检查点")}</strong>
+        <span>{t("round + train state", "轮次与训练状态")}</span>
       </div>
 
       <!-- Versioned policy return -->
       <i class="g g-out"></i>
-      <div class="ret full">next round after adoption</div>
+      <div class="ret full">{t("next round after adoption", "加载新策略后进入下一轮")}</div>
     </div>
   </div>
 
-  <figcaption>Collection-to-training integration</figcaption>
+  <figcaption>{t("Collection-to-training integration", "从采集到训练的闭环集成")}</figcaption>
 </figure>
 
 <style>

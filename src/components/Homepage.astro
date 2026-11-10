@@ -1,0 +1,218 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import GrpoDiagram from "./GrpoDiagram.astro";
+import DaggerDiagram from "./DaggerDiagram.astro";
+import RobotAdapters from "./RobotAdapters.astro";
+import WamComparison from "./WamComparison.astro";
+import { profile } from "../data/profile";
+import { education, workExperience } from "../data/resume";
+import { educationZh, workExperienceZh } from "../data/resume-zh";
+import { resumePaths, translateFor, type Language } from "../data/i18n";
+import { getPublications } from "../data/publications";
+import "../styles/home.css";
+import "../styles/work-visuals.css";
+
+interface Props {
+  lang?: Language;
+}
+
+const { lang = "en" } = Astro.props;
+const t = translateFor(lang);
+const homePath = lang === "zh" ? "/zh/" : "/";
+const resume = resumePaths[lang];
+const [dreamzero, robustness] = getPublications(lang);
+const pageEducation = lang === "zh" ? educationZh : education;
+const externalRel = "noopener noreferrer";
+const contactLinks = profile.links.filter((link) => link.label !== "Email");
+const linkedInSlug = new URL(profile.sameAs[2]).pathname.split("/").filter(Boolean).at(-1);
+const orcidId = new URL(profile.sameAs[3]).pathname.slice(1);
+const [currentExperience, ...earlierExperience] = lang === "zh" ? workExperienceZh : workExperience;
+const previousRoles = earlierExperience.map((item) => ({
+  ...item,
+  years: [...new Set(item.period.match(/\d{4}/g))].join("–"),
+}));
+const workDiagrams = { grpo: GrpoDiagram, dagger: DaggerDiagram, robots: RobotAdapters };
+---
+
+<BaseLayout lang={lang} canonicalPath={homePath}>
+  <a class="skip-link" href="#main-content">{t("Skip to content", "跳到正文")}</a>
+  <header class="site-header portfolio-header">
+    <div class="portfolio-nav">
+      <a class="brand" href={homePath} aria-label={t(`${profile.name} homepage`, `${profile.nativeName}的主页`)}>
+        <img src="/images/favicon.svg?v=jg-2" width="28" height="28" alt="" />
+      </a>
+      <nav aria-label={t("Primary navigation", "主导航")}>
+        <a href="#experience">{t("Experience", "经历")}</a>
+        <a href="#research">{t("Research", "研究")}</a>
+        <a class="desktop-nav" href="#contact">{t("Contact", "联系")}</a>
+        <a class="mobile-nav" href={`mailto:${profile.email}`}>{t("Email", "邮件")}</a>
+        <a class="language-switch" href={t("/zh/", "/")} lang={t("zh-CN", "en")} hreflang={t("zh-CN", "en")} aria-label={t("切换到中文版", "Switch to English")}>{t("中文", "English")}</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" class="portfolio-layout">
+    <aside id="about" class="identity" aria-labelledby="name">
+      <h1 id="name">{t(profile.name, profile.nativeName)}<span lang={t("zh-CN", "en")}>{t(profile.nativeName, profile.name)}</span></h1>
+      <p class="identity-role">
+        {lang === "en" && "Research Engineer at "}<a href="https://research.nvidia.com/labs/gear/" target="_blank" rel={externalRel}>{t("NVIDIA GEAR", "英伟达 NVIDIA GEAR")}</a>{lang === "zh" && " 研究工程师"}
+      </p>
+      <p class="identity-statement">
+        {profile.introduction[lang]}
+      </p>
+      <nav aria-label={t("Profile links", "个人资料链接")}>
+        <ul class="identity-links">
+          <li><a href={`mailto:${profile.email}`}><span>{t("Email", "邮箱")}</span><span class="link-detail">{t("Get in touch", "联系我")}</span></a></li>
+          <li>
+            <a
+              href={profile.sameAs[0]}
+              target="_blank"
+              rel={externalRel}
+              data-scholar-stats
+              data-url={profile.scholarStatsUrl}
+              data-state="loading"
+              title={t("Total citations across all publications on Google Scholar", "Google 学术中全部论文的总引用次数")}
+            >
+              <span><span class="scholar-service-prefix">Google </span>{t("Scholar", "学术")} <span class="external-mark" aria-hidden="true">↗</span></span>
+              <span class="link-detail" aria-live="polite"><strong data-scholar-total>{t("View", "查看")}</strong> <span class="scholar-label">{t("profile", "资料")}</span></span>
+            </a>
+          </li>
+          <li><a href={profile.sameAs[1]} target="_blank" rel={externalRel}><span>GitHub <span class="external-mark" aria-hidden="true">↗</span></span><span class="link-detail">jiashenggu</span></a></li>
+          <li><a href={profile.sameAs[2]} target="_blank" rel={externalRel}><span>LinkedIn <span class="external-mark" aria-hidden="true">↗</span></span><span class="link-detail">{linkedInSlug}</span></a></li>
+          <li class="secondary-link"><a href={profile.sameAs[3]} target="_blank" rel={externalRel}><span>ORCID <span class="external-mark" aria-hidden="true">↗</span></span><span class="link-detail">{orcidId}</span></a></li>
+        </ul>
+      </nav>
+      <div class="resume-actions">
+        <a href={resume.page}>{t("View résumé", "查看简历")}</a>
+        <a href={resume.pdf} download>{t("Download PDF", "下载 PDF")} <span aria-hidden="true">↓</span></a>
+      </div>
+    </aside>
+
+    <div class="research-work">
+      <section id="experience" aria-labelledby="experience-title">
+        <h2 id="experience-title" class="section-label">{t("Current work", "当前工作")}</h2>
+        <div class="current-work-context">
+          <a href={currentExperience.href} target="_blank" rel={externalRel}>{currentExperience.organization} GEAR</a>
+          <span>{currentExperience.period}</span>
+        </div>
+        <p class="current-work-description">{currentExperience.detail}</p>
+        <div class="work-visual-grid">
+          {currentExperience.highlights.map((highlight) => {
+            const Diagram = workDiagrams[highlight.id];
+            return (
+              <article class:list={["work-topic", `topic-${highlight.id}`]} aria-labelledby={`work-topic-${highlight.id}`}>
+                <h3 id={`work-topic-${highlight.id}`}>{highlight.title}</h3>
+                <p class="work-takeaway">{highlight.summary}</p>
+                <Diagram lang={lang} />
+                <details class="work-details">
+                  <summary aria-label={`${t("Technical notes", "技术补充")}：${highlight.title}`}>{t("Technical notes", "技术补充")} <span aria-hidden="true">+</span></summary>
+                  {highlight.technicalNotes.map((note) => (
+                    <div class="work-detail-section technical-note">
+                      <h4>{note.title}</h4>
+                      <p>{note.text}</p>
+                    </div>
+                  ))}
+                </details>
+              </article>
+            );
+          })}
+        </div>
+        <div class="work-figure-notes">
+          <p class="platform-credits">
+            {t("Platform references:", "平台资料：")}
+            <a href="https://galaxea-dynamics.com/products/galaxea-r1-pro-7-dof-dual-arm-wheeled-universal-humanoid-robot" target="_blank" rel={externalRel}>{t("Galaxea", "星海图 Galaxea")}</a> ·
+            <a href="https://docs.spirit-ai.com/moz1/mechanics.html" target="_blank" rel={externalRel}>{t("Spirit AI", "千寻智能 Spirit AI")}</a> ·
+            <a href="https://i2rt.com/products/yam-teleoperation-stations" target="_blank" rel={externalRel}>I2RT</a>
+          </p>
+        </div>
+        <p class="previous-experience">
+          <span class="previous-label">{t("Previously", "此前经历")}</span>{" "}
+          {previousRoles.map((item, index) => (
+            <>
+              {index > 0 && " "}
+              <a href={item.href} target="_blank" rel={externalRel} title={`${item.role} · ${item.period}`}>{item.organization}</a>
+              {" "}({item.years})
+            </>
+          ))}
+        </p>
+        <details class="work-details">
+          <summary>{t("Earlier multimodal work", "早期多模态工作")} <span aria-hidden="true">+</span></summary>
+          {earlierExperience.map((experience) => (
+            <div class="work-detail-section">
+              <h3>{experience.organization}</h3>
+              <p class="work-job-detail">{experience.detail}</p>
+              {"additionalDetail" in experience && (
+                <p class="work-job-additional">{experience.additionalDetail}</p>
+              )}
+              {"technicalNotes" in experience && experience.technicalNotes.map((note) => (
+                <div class="technical-note">
+                  <h4>{note.title}</h4>
+                  <p>{note.text}</p>
+                </div>
+              ))}
+            </div>
+          ))}
+        </details>
+      </section>
+
+      <section id="research" aria-labelledby="publications">
+        <h2 id="publications" class="section-label">{t("Selected publications", "代表论文")}</h2>
+
+        <article id="dreamzero" class="research-entry" aria-labelledby="dreamzero-title">
+          <p class="entry-meta">{dreamzero.metadata}</p>
+          <h3 id="dreamzero-title" class="project-title">{dreamzero.shortTitle}</h3>
+          <p class="paper-title">{dreamzero.title}</p>
+          <p class="research-description">
+            {dreamzero.description}
+          </p>
+          <WamComparison lang={lang} />
+          <p class="paper-results"><span>{t("Results reported by the paper", "论文报告的结果")}</span><strong>7 Hz</strong> {t("closed-loop control", "闭环控制")} · <strong>&gt;2×</strong> {t("generalization over VLA baselines", "相对 VLA 基线的泛化表现")}</p>
+          <div class="research-links">
+            {[dreamzero.project, dreamzero.paper, dreamzero.code].map((link) => (
+              <a href={link.href} target="_blank" rel={externalRel}>{link.label}</a>
+            ))}
+          </div>
+        </article>
+
+        <article id="language-research" class="research-entry" aria-labelledby="robustness-title">
+          <p class="entry-meta">{robustness.metadata}</p>
+          <h3 id="robustness-title" class="project-title paper-project-title">{robustness.title}</h3>
+          <p class="research-description">
+            {robustness.description}
+          </p>
+          <div class="research-links">
+            {[robustness.paper, robustness.pdf].map((link) => (
+              <a href={link.href} target="_blank" rel={externalRel}>{link.label}</a>
+            ))}
+          </div>
+        </article>
+
+        <p class="publication-archive"><a href={profile.sameAs[0]} target="_blank" rel={externalRel}>{t("All publications on Google Scholar", "在 Google 学术查看全部论文")}</a></p>
+      </section>
+
+      <section id="education" aria-labelledby="education-title">
+        <h2 id="education-title" class="section-label">{t("Education", "教育背景")}</h2>
+        <div class="career-list">
+          {pageEducation.map((item) => (
+            <article class="career-entry">
+              <p class="career-period">{item.period}</p>
+              <div><h3>{item.institution}</h3><p class="career-role">{item.degree}</p></div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="contact" aria-labelledby="contact-title">
+        <h2 id="contact-title" class="section-label">{t("Contact", "联系方式")}</h2>
+        <a class="contact-address" href={`mailto:${profile.email}`}>{profile.email}</a>
+        <nav class="contact-links" aria-label={t("Contact and professional profiles", "联系方式与专业资料")}>
+          {contactLinks.map((link) => (
+            <a href={link.href} target={link.href.startsWith("http") ? "_blank" : undefined} rel={link.href.startsWith("http") ? externalRel : undefined}>{link.label === "Google Scholar" ? t(link.label, "Google 学术") : link.label}</a>
+          ))}
+        </nav>
+      </section>
+      <footer class="portfolio-footer">© {new Date().getFullYear()} {t(profile.name, profile.nativeName)}</footer>
+    </div>
+  </main>
+  <script src="../scripts/scholar-stats.ts"></script>
+</BaseLayout>

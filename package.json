@@ -9,7 +9,8 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/export-resume.mjs",
+    "setup:pdf": "PLAYWRIGHT_BROWSERS_PATH=.local-artifacts/resume-pdf/browsers playwright install --only-shell chromium",
     "preview": "astro preview",
     "check": "astro check"
   },
@@ -19,6 +20,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
+    "playwright": "^1.65.0",
     "typescript": "^6.0.3"
   },
   "overrides": {

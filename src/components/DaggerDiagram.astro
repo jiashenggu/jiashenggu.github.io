@@ -1,39 +1,49 @@
+---
+import { translateFor, type Language } from "../data/i18n";
+
+interface Props {
+  lang?: Language;
+}
+
+const t = translateFor(Astro.props.lang ?? "en");
+---
+
 <figure class="work-diagram">
 <div
   class="schematic-plate dagger-plate"
   role="img"
-  aria-label="DAgger workflow schematic. Online: collect robot rollouts, annotate, update the policy, and repeat. Offline: aggregate demonstrations and takeover trajectories, weight the data, then train."
+  aria-label={t("DAgger workflow schematic. Online: collect robot rollouts, annotate, update the policy, and repeat. Offline: aggregate demonstrations and takeover trajectories, weight the data, then train.", "DAgger 流程示意。在线：采集机器人轨迹、标注、更新策略并重复。离线：汇总示范与接管轨迹，对数据加权后训练。")}
 >
   <div class="dagger-lanes" aria-hidden="true">
     <div class="dagger-lane">
-      <span class="lane-label">Online</span>
+      <span class="lane-label">{t("Online", "在线")}</span>
       <div class="lane-flow online-flow">
-        <div class="process-step"><span class="data-node"></span><span>Collect</span></div>
-        <div class="process-step"><span class="human-node"></span><span>Annotate</span></div>
-        <div class="process-step"><span class="policy-node"></span><span>Update</span></div>
+        <div class="process-step"><span class="data-node"></span><span>{t("Collect", "采集")}</span></div>
+        <div class="process-step"><span class="human-node"></span><span>{t("Annotate", "标注")}</span></div>
+        <div class="process-step"><span class="policy-node"></span><span>{t("Update", "更新")}</span></div>
         <span class="return-loop"></span>
       </div>
     </div>
     <div class="dagger-lane">
-      <span class="lane-label">Offline</span>
+      <span class="lane-label">{t("Offline", "离线")}</span>
       <div class="lane-flow offline-flow">
         <div class="process-step">
           <span class="data-stack"><i></i><i></i><i class="human-sample"></i><i></i></span>
-          <span>Aggregate</span>
+          <span>{t("Aggregate", "汇总")}</span>
         </div>
         <div class="process-step">
           <span class="data-stack weighted-stack"><i></i><i></i><i class="human-sample"></i><i></i></span>
-          <span>Weight</span>
+          <span>{t("Weight", "加权")}</span>
         </div>
-        <div class="process-step"><span class="policy-node"></span><span>Train</span></div>
+        <div class="process-step"><span class="policy-node"></span><span>{t("Train", "训练")}</span></div>
       </div>
     </div>
   </div>
 </div>
 <figcaption class="diagram-key">
-  <span>Schematic</span>
-  <span><i class="legend-data" aria-hidden="true"></i> Rollouts</span>
-  <span><i class="legend-human" aria-hidden="true"></i> Human input</span>
-  <span><i class="legend-policy" aria-hidden="true"></i> Policy</span>
+  <span>{t("Schematic", "示意图")}</span>
+  <span><i class="legend-data" aria-hidden="true"></i> {t("Rollouts", "执行轨迹")}</span>
+  <span><i class="legend-human" aria-hidden="true"></i> {t("Human input", "人工输入")}</span>
+  <span><i class="legend-policy" aria-hidden="true"></i> {t("Policy", "策略")}</span>
 </figcaption>
 </figure>

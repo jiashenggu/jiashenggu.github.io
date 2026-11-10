@@ -1,4 +1,11 @@
 ---
+import { translateFor, type Language } from "../data/i18n";
+
+interface Props {
+  lang?: Language;
+}
+
+const t = translateFor(Astro.props.lang ?? "en");
 type Pt = [number, number];
 type Pose = { w: Pt; e: Pt; open: boolean; cube: Pt };
 type Step = {
@@ -119,8 +126,8 @@ const action = (delta: Pt, grip: [boolean, boolean], word: string) => {
     `<polygon points="${step.head}" fill="${ACCENT}"/>`,
     gripIcon(137, grip[1]),
     `<text x="117" y="67" text-anchor="middle" font-family="${MONO}" font-size="11" fill="${ACCENT}">${word}</text>`,
-    `<text x="40" y="97" text-anchor="middle" font-family="${MONO}" font-size="12" fill="#606872">move</text>`,
-    `<text x="117" y="97" text-anchor="middle" font-family="${MONO}" font-size="12" fill="#606872">gripper</text>`,
+    `<text x="40" y="97" text-anchor="middle" font-family="${MONO}" font-size="12" fill="#606872">${t('move', '移动')}</text>`,
+    `<text x="117" y="97" text-anchor="middle" font-family="${MONO}" font-size="12" fill="#606872">${t('gripper', '夹爪')}</text>`,
   ].join('');
 };
 
@@ -132,9 +139,9 @@ const steps: Step[] = [
     move: [[68, 46], [68, 66]],
     delta: [0, 1],
     grip: [true, false],
-    word: 'close',
-    worldLabel: 'Predicted frame t+1: the gripper has lowered and closed around the cube.',
-    actLabel: 'Action t+1: move down and close the gripper.',
+    word: t('close', '闭合'),
+    worldLabel: t('Predicted frame t+1: the gripper has lowered and closed around the cube.', '预测画面 t+1：夹爪下降并闭合，抓住方块。'),
+    actLabel: t('Action t+1: move down and close the gripper.', '动作 t+1：向下移动并闭合夹爪。'),
   },
   {
     t: 't+2',
@@ -143,9 +150,9 @@ const steps: Step[] = [
     move: [[58, 62], [68, 44]],
     delta: [34, -32],
     grip: [false, false],
-    word: 'hold',
-    worldLabel: 'Predicted frame t+2: the cube is lifted and carried toward the bowl.',
-    actLabel: 'Action t+2: move up and right while keeping the gripper closed.',
+    word: t('hold', '保持'),
+    worldLabel: t('Predicted frame t+2: the cube is lifted and carried toward the bowl.', '预测画面 t+2：方块被提起并移向碗。'),
+    actLabel: t('Action t+2: move up and right while keeping the gripper closed.', '动作 t+2：向右上方移动，同时保持夹爪闭合。'),
   },
   {
     t: 't+3',
@@ -154,9 +161,9 @@ const steps: Step[] = [
     move: [[76, 60], [94, 60]],
     delta: [24, 10],
     grip: [false, true],
-    word: 'open',
-    worldLabel: 'Predicted frame t+3: the cube has dropped into the bowl and the gripper is open.',
-    actLabel: 'Action t+3: move right over the bowl and open the gripper.',
+    word: t('open', '张开'),
+    worldLabel: t('Predicted frame t+3: the cube has dropped into the bowl and the gripper is open.', '预测画面 t+3：方块已落入碗中，夹爪张开。'),
+    actLabel: t('Action t+3: move right over the bowl and open the gripper.', '动作 t+3：向右移动至碗上方并张开夹爪。'),
   },
 ];
 
@@ -168,27 +175,32 @@ const tokens = Array.from({ length: 9 }, (_, i) => (i % 3 === 2 ? 'a' : 'v'));
 <figure class="wam" data-wam>
   <div class="head">
     <div class="title-row">
-      <h3 class="title">Joint video–action prediction</h3>
-      <span class="badge">Conceptual schematic</span>
+      <h3 class="title">{t("Joint video–action prediction", "视频与动作联合预测")}</h3>
+      <span class="badge">{t("Conceptual schematic", "概念示意图")}</span>
     </div>
     <p class="lede">
-      From what the robot sees, its state and an instruction, <strong>one model</strong> predicts
+      {Astro.props.lang === "zh" ? (
+        <>根据机器人看到的画面、自身状态和任务指令，<strong>同一个模型</strong>逐步预测<strong>场景将如何变化</strong>，以及<strong>让场景发生变化的动作</strong>。</>
+      ) : (
+        <>From what the robot sees, its state and an instruction, <strong>one model</strong> predicts
       <strong>how the scene will change</strong> and <strong>the actions that make it change</strong>, step for step.
+        </>
+      )}
     </p>
   </div>
 
   <div class="body">
     <div class="stage">
       <div class="inputs">
-        <p class="chip ins"><span class="k">instruction</span><span class="v">“Put the cube in the bowl”</span></p>
-        <p class="chip st"><span class="k">robot state</span><span class="v">joint angles, gripper</span></p>
+        <p class="chip ins"><span class="k">{t("instruction", "任务指令")}</span><span class="v">{t("“Put the cube in the bowl”", "“把方块放进碗里”")}</span></p>
+        <p class="chip st"><span class="k">{t("robot state", "机器人状态")}</span><span class="v">{t("joint angles, gripper", "关节角度、夹爪状态")}</span></p>
         <div class="now">
-          <span class="k">camera · now</span>
+          <span class="k">{t("camera · now", "相机 · 当前画面")}</span>
           <svg
             class="frame"
             viewBox="0 0 160 110"
             role="img"
-            aria-label="Current camera view: the robot's open gripper above a red cube on the table, with a bowl to the right."
+            aria-label={t("Current camera view: the robot's open gripper above a red cube on the table, with a bowl to the right.", "当前相机画面：张开的机器人夹爪位于桌面红色方块上方，右侧有一个碗。")}
             set:html={nowFrame}
           ></svg>
         </div>
@@ -199,8 +211,8 @@ const tokens = Array.from({ length: 9 }, (_, i) => (i % 3 === 2 ? 'a' : 'v'));
       <div class="model">
         <span class="tokens" aria-hidden="true">{tokens.map((k) => <i class={`tok ${k}`} />)}</span>
         <span class="model-text">
-          <span class="model-name">One world action model</span>
-          <span class="model-sub">shared backbone · joint denoising</span>
+          <span class="model-name">{t("One world action model", "同一个世界动作模型")}</span>
+          <span class="model-sub">{t("shared backbone · joint denoising", "共享骨干 · 联合去噪")}</span>
         </span>
       </div>
 
@@ -208,10 +220,10 @@ const tokens = Array.from({ length: 9 }, (_, i) => (i % 3 === 2 ? 'a' : 'v'));
 
       <div class="future">
         <div class="f-head">
-          <p class="f-title">Predicted together</p>
+          <p class="f-title">{t("Predicted together", "联合预测")}</p>
           <p class="legend">
-            <span><i class="sw"></i>video</span>
-            <span><i class="sw a"></i>actions</span>
+            <span><i class="sw"></i>{t("video", "视频")}</span>
+            <span><i class="sw a"></i>{t("actions", "动作")}</span>
           </p>
         </div>
         <ol class="pairs">
@@ -230,13 +242,13 @@ const tokens = Array.from({ length: 9 }, (_, i) => (i % 3 === 2 ? 'a' : 'v'));
       </div>
     </div>
 
-    <p class="loop"><span class="loop-text"><span>execute actions → observe → repeat</span></span></p>
+    <p class="loop"><span class="loop-text"><span>{t("execute actions → observe → repeat", "执行动作 → 观察 → 重复")}</span></span></p>
   </div>
 
   <figcaption class="cap">
-    Conceptual illustration, not a model rollout. Motion and gripper glyphs represent action outputs.
-    <a href={`${PAPER}#S2.F4`} target="_blank" rel="noopener noreferrer">Architecture</a> ·
-    <a href={`${PAPER}#S1.F2`} target="_blank" rel="noopener noreferrer">Real example</a>.
+    {t("Conceptual illustration, not a model rollout. Motion and gripper glyphs represent action outputs.", "此图为概念示意，并非模型实际生成的轨迹。移动与夹爪图标表示动作输出。")}
+    <a href={`${PAPER}#S2.F4`} target="_blank" rel="noopener noreferrer">{t("Architecture", "模型架构")}</a> ·
+    <a href={`${PAPER}#S1.F2`} target="_blank" rel="noopener noreferrer">{t("Real example", "真实示例")}</a>{t(".", "。")}
   </figcaption>
 </figure>
 

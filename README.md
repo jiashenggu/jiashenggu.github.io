@@ -14,12 +14,17 @@ This repository is an Astro-powered static academic homepage for
 
 ```text
 src/
-  components/          Work diagrams and robot platform references
-  data/                Profile, education, and work experience
+  components/          Shared homepage, résumé, and work diagrams
+  data/                Shared profile, publications, and bilingual experience
   layouts/             Base HTML/SEO layout
-  pages/index.astro    Homepage
+  pages/index.astro    English homepage
+  pages/zh.astro       Chinese homepage
+  pages/resume.astro   English résumé
+  pages/zh/resume.astro Chinese résumé
   scripts/             Live Google Scholar citation count
-  styles/global.css    Site-wide CSS
+  styles/              Site, diagrams, and screen/print résumé styles
+scripts/
+  export-resume.mjs    Generate PDFs from the built résumé pages
 public/
   images/              Project images and site icons
   fonts/               Self-hosted IBM Plex fonts and their OFL licenses
@@ -32,10 +37,11 @@ google_scholar_crawler/
 
 ## Local Development
 
-Use Node.js 22 or newer. The repository includes `.node-version` for version managers.
+Use Node.js 22.14 or newer. The repository includes `.node-version` for version managers.
 
 ```bash
 npm install
+npm run setup:pdf
 npm run dev
 ```
 
@@ -49,16 +55,24 @@ npm run build
 npm audit --audit-level=moderate
 ```
 
-`npm run build` writes the static site to `dist/`.
+`npm run build` writes the static site to `dist/` and generates both résumé PDFs
+from the built résumé pages. `npm run setup:pdf` installs the browser once;
+on Linux, add `-- --with-deps` if its system libraries are missing.
+Use `npm run preview` after building to check the PDF download links.
 
 ## Content Updates
 
-- Profile and links: `src/data/profile.ts`
-- Homepage research case studies: `src/pages/index.astro`. The homepage shows selected work and links to the complete publication list on Google Scholar.
-- Education and work experience: `src/data/resume.ts`
+- Shared profile, introduction and links: `src/data/profile.ts`
+- Shared publications: `src/data/publications.ts`
+- Shared education and work experience: `src/data/resume.ts` and `src/data/resume-zh.ts`. The homepage and résumé use the same core descriptions verbatim; PDF export prints that résumé. Optional `technicalNotes` add implementation details in the homepage's expandable sections without rewriting the core descriptions. The résumé and PDF omit these supplements.
 - Current-work diagrams: `src/components/`; the complete technical descriptions remain in native expandable details.
-- Page layout/content: `src/pages/index.astro`
-- Styling: `src/styles/global.css`, `src/styles/home.css`, `src/styles/work-visuals.css`, and `src/styles/fonts.css`
+- Homepage layout: `src/components/Homepage.astro`; résumé layout: `src/components/Resume.astro`
+- English routes: `/` and `/resume/`; Chinese routes: `/zh/` and `/zh/resume/`
+- Styling: `src/styles/global.css`, `src/styles/home.css`, `src/styles/work-visuals.css`, `src/styles/resume.css`, and `src/styles/fonts.css`
+
+The PDFs are generated assets in `dist/resume/` and `dist/zh/resume/`, not
+separate content to edit or commit. Every site build regenerates them; deployment
+fails if PDF export fails, so an older PDF cannot silently accompany new HTML.
 
 ## Deployment
 

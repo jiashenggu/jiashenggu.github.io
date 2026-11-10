@@ -46,7 +46,7 @@
 .portfolio-nav nav {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 12px;
   font-size: 14px;
 }
 
@@ -167,6 +167,31 @@
 
 .identity-links .secondary-link {
   display: none;
+}
+
+.resume-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.resume-actions a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 6px 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 3px;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.resume-actions a:hover {
+  border-color: var(--accent-strong);
+  background: var(--surface);
 }
 
 .research-work > section + section {
@@ -377,6 +402,10 @@
 
   .portfolio-layout {
     max-width: 768px;
+  }
+
+  .portfolio-nav nav {
+    gap: 24px;
   }
 
   .career-entry {

@@ -1,0 +1,105 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { profile } from "../data/profile";
+import { education, workExperience } from "../data/resume";
+import { educationZh, workExperienceZh } from "../data/resume-zh";
+import { getPublications } from "../data/publications";
+import { resumePaths, translateFor, type Language } from "../data/i18n";
+import "../styles/resume.css";
+
+interface Props {
+  lang?: Language;
+}
+
+const { lang = "en" } = Astro.props;
+const t = translateFor(lang);
+const name = t(profile.name, profile.nativeName);
+const homePath = t("/", "/zh/");
+const pageEducation = lang === "zh" ? educationZh : education;
+const pageExperience = lang === "zh" ? workExperienceZh : workExperience;
+const publications = getPublications(lang);
+const resume = resumePaths[lang];
+const alternatePaths = { en: resumePaths.en.page, zh: resumePaths.zh.page };
+const otherLanguage = lang === "zh" ? "en" : "zh";
+---
+
+<BaseLayout
+  lang={lang}
+  title={`${name} — ${t("Résumé", "简历")}`}
+  description={profile.introduction[lang]}
+  canonicalPath={resume.page}
+  alternatePaths={alternatePaths}
+>
+  <div class="resume-shell">
+    <nav class="resume-toolbar" aria-label={t("Résumé navigation", "简历导航")}>
+      <a href={homePath}><span aria-hidden="true">←</span>{t("Homepage", "个人主页")}</a>
+      <a href={resumePaths[otherLanguage].page} lang={t("zh-CN", "en")} hreflang={t("zh-CN", "en")}>{t("中文", "English")}</a>
+      <a class="resume-download" data-resume-pdf href={resume.pdf} download>{t("Download PDF", "下载 PDF")}<span aria-hidden="true">↓</span></a>
+    </nav>
+
+    <main class="resume-sheet">
+      <header class="resume-header">
+        <h1>{name}{" "}<span lang={t("zh-CN", "en")}>{t(profile.nativeName, profile.name)}</span></h1>
+        <p class="resume-headline">{pageExperience[0].role} · {pageExperience[0].organization} GEAR</p>
+        <div class="resume-contact">
+          <a href={`mailto:${profile.email}`}>{profile.email}</a>
+          <a href={profile.siteUrl + homePath}>{new URL(profile.siteUrl).host}{lang === "zh" && "/zh/"}</a>
+          <a href={profile.sameAs[0]}>{t("Google Scholar", "Google 学术")}</a>
+          <a href={profile.sameAs[1]}>GitHub</a>
+        </div>
+        <p class="resume-intro">{profile.introduction[lang]}</p>
+      </header>
+
+      <section aria-labelledby="resume-experience">
+        <h2 id="resume-experience">{t("Experience", "工作经历")}</h2>
+        {pageExperience.map((experience) => (
+          <article class="resume-job">
+            <div class="resume-entry-heading">
+              <h3>{experience.organization}{"highlights" in experience && " GEAR"} <span>· {experience.role}</span></h3>
+              <p>{experience.period}</p>
+            </div>
+            {"additionalDetail" in experience ? (
+              <ul class="resume-contributions">
+                <li class="resume-job-detail">{experience.detail}</li>
+                <li class="resume-earlier">{experience.additionalDetail}</li>
+              </ul>
+            ) : (
+              <p class="resume-job-detail">{experience.detail}</p>
+            )}
+            {"highlights" in experience && (
+              <ul class="resume-contributions">
+                {experience.highlights.map((highlight) => (
+                  <li><strong>{highlight.title}{t(".", "：")}</strong> {highlight.summary}</li>
+                ))}
+              </ul>
+            )}
+          </article>
+        ))}
+      </section>
+
+      <section aria-labelledby="resume-publications">
+        <h2 id="resume-publications">{t("Selected publications", "代表论文")}</h2>
+        {publications.map((publication) => (
+          <article class="resume-publication">
+            <h3><a href={publication.paper.href}>{"shortTitle" in publication && `${publication.shortTitle} — `}{publication.title}</a></h3>
+            <p class="resume-publication-meta">{publication.metadata}</p>
+            <p class="resume-publication-description">{publication.description}</p>
+          </article>
+        ))}
+      </section>
+
+      <section aria-labelledby="resume-education">
+        <h2 id="resume-education">{t("Education", "教育背景")}</h2>
+        {pageEducation.map((item) => (
+          <article class="resume-education">
+            <div class="resume-entry-heading">
+              <h3>{item.institution}</h3>
+              <p>{item.period}</p>
+            </div>
+            <p>{item.degree}</p>
+          </article>
+        ))}
+      </section>
+    </main>
+  </div>
+</BaseLayout>

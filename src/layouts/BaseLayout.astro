@@ -2,17 +2,23 @@
 import "../styles/fonts.css";
 import "../styles/global.css";
 import { profile } from "../data/profile";
+import { translateFor, type Language } from "../data/i18n";
 
 interface Props {
   title?: string;
   description?: string;
   canonicalPath?: string;
+  lang?: Language;
+  alternatePaths?: { en: string; zh: string };
 }
 
+const { lang = "en" } = Astro.props;
+const t = translateFor(lang);
 const {
-  title = `${profile.name} — Generative & Embodied AI`,
-  description = profile.description,
+  title = t(`${profile.name} — Generative & Embodied AI`, `${profile.nativeName} — 生成式与具身智能`),
+  description = t(profile.description, "顾家盛，英伟达 NVIDIA GEAR 研究工程师，从事生成式机器人策略与后训练，拥有多模态生成与理解的工作背景。"),
   canonicalPath = "/",
+  alternatePaths = { en: "/", zh: "/zh/" },
 } = Astro.props;
 
 const canonicalUrl = new URL(canonicalPath, profile.siteUrl).toString();
@@ -20,22 +26,22 @@ const imageUrl = new URL("/images/android-chrome-512x512.png?v=jg-2", profile.si
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
-  name: profile.name,
-  alternateName: profile.nativeName,
+  name: t(profile.name, profile.nativeName),
+  alternateName: t(profile.nativeName, profile.name),
   description,
   url: profile.siteUrl,
   email: `mailto:${profile.email}`,
-  jobTitle: profile.jobTitle,
+  jobTitle: t(profile.jobTitle, "NVIDIA GEAR 研究工程师"),
   address: {
     "@type": "PostalAddress",
-    addressLocality: profile.location,
+    addressLocality: t(profile.location, "上海"),
   },
   sameAs: profile.sameAs,
 };
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={t("en", "zh-CN")}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -44,21 +50,25 @@ const personSchema = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang="en" href={profile.siteUrl + alternatePaths.en} />
+    <link rel="alternate" hreflang="zh-CN" href={profile.siteUrl + alternatePaths.zh} />
+    <link rel="alternate" hreflang="x-default" href={profile.siteUrl + alternatePaths.en} />
 
     <meta property="og:type" content="profile" />
-    <meta property="og:site_name" content={profile.name} />
+    <meta property="og:site_name" content={t(profile.name, profile.nativeName)} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={imageUrl} />
-    <meta property="og:image:alt" content="JG — Jiasheng Gu" />
-    <meta property="og:locale" content="en_US" />
+    <meta property="og:image:alt" content={t("JG — Jiasheng Gu", "JG — 顾家盛")} />
+    <meta property="og:locale" content={t("en_US", "zh_CN")} />
+    <meta property="og:locale:alternate" content={t("zh_CN", "en_US")} />
 
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={imageUrl} />
-    <meta name="twitter:image:alt" content="JG — Jiasheng Gu" />
+    <meta name="twitter:image:alt" content={t("JG — Jiasheng Gu", "JG — 顾家盛")} />
 
     <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=jg-2" />
     <link rel="icon" href="/images/favicon.ico?v=jg-2" />
