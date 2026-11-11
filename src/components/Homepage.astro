@@ -20,7 +20,7 @@ const { lang = "en" } = Astro.props;
 const t = translateFor(lang);
 const homePath = lang === "zh" ? "/zh/" : "/";
 const resume = resumePaths[lang];
-const [dreamzero, robustness] = getPublications(lang);
+const [gr00t2, dreamzero, robustness] = getPublications(lang);
 const pageEducation = lang === "zh" ? educationZh : education;
 const externalRel = "noopener noreferrer";
 const contactLinks = profile.links.filter((link) => link.label !== "Email");
@@ -163,6 +163,20 @@ const workDiagrams = { grpo: GrpoDiagram, dagger: DaggerDiagram, robots: RobotAd
 
       <section id="research" aria-labelledby="publications">
         <h2 id="publications" class="section-label">{t("Selected publications", "代表论文")}</h2>
+
+        <article id="gr00t2" class="research-entry" aria-labelledby="gr00t2-title">
+          <p class="entry-meta">{gr00t2.metadata}</p>
+          <h3 id="gr00t2-title" class="project-title">{gr00t2.shortTitle}</h3>
+          <p class="paper-title">{gr00t2.title}</p>
+          <p class="research-description">
+            {gr00t2.description}
+          </p>
+          <div class="research-links">
+            {[gr00t2.project, gr00t2.paper].map((link) => (
+              <a href={link.href} target="_blank" rel={externalRel}>{link.label}</a>
+            ))}
+          </div>
+        </article>
 
         <article id="dreamzero" class="research-entry" aria-labelledby="dreamzero-title">
           <p class="entry-meta">{dreamzero.metadata}</p>
