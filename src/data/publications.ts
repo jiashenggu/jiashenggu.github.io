@@ -9,8 +9,8 @@ export function getPublications(language: Language) {
       title: "Scaling Robot Foundation Models for Generalization, Dexterity, and Adaptation",
       metadata: t("NVIDIA whitepaper · Nov 2026 · Contributor · NVIDIA GEAR", "NVIDIA 白皮书 · 2026 年 11 月 · 贡献者 · NVIDIA GEAR"),
       description: t(
-        "GR00T 2 is a new generation of world action models that predict future video and robot actions together and run on parallel grippers, dexterous hands and humanoids. It was announced at CoRL 2026; my contributions are in RL post-training, DAgger data pipelines and real-robot adaptation.",
-        "GR00T 2 是新一代世界动作模型，联合预测未来视频与机器人动作，可运行于平行夹爪、灵巧手和人形机器人，于 CoRL 2026 发布。我的贡献集中在强化学习后训练、DAgger 数据流程与真机适配。",
+        "GR00T 2 is a new generation of world action models that predict future video and robot actions together and run on parallel grippers, dexterous hands and humanoids. It was announced at CoRL 2026; my contributions are in GRPO reinforcement-learning post-training, DAgger data pipelines and real-robot adaptation.",
+        "GR00T 2 是新一代世界动作模型，联合预测未来视频与机器人动作，可运行于平行夹爪、灵巧手和人形机器人，于 CoRL 2026 发布。我的贡献集中在 GRPO 强化学习后训练、DAgger 数据流程与真机适配。",
       ),
       paper: { label: t("Whitepaper", "白皮书"), href: "https://research.nvidia.com/labs/gear/gr00t-2/assets/gr00t2_whitepaper.pdf" },
       project: { label: t("Project", "项目主页"), href: "https://research.nvidia.com/labs/gear/gr00t-2/" },
