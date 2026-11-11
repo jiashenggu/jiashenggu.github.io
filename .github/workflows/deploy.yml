@@ -26,7 +26,7 @@ jobs:
         with:
           node-version: 22
           package-manager: npm
-          build-cmd: npm run setup:pdf -- --with-deps && npm run check && npm run build
+          build-cmd: (npm run setup:pdf -- --with-deps || (sleep 30 && npm run setup:pdf -- --with-deps)) && npm run check && npm run build
 
   deploy:
     needs: build
