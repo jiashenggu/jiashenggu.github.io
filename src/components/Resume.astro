@@ -73,6 +73,14 @@ const otherLanguage = lang === "zh" ? "en" : "zh";
                 ))}
               </ul>
             )}
+            {"project" in experience && (
+              <p class="resume-project-links">
+                {experience.project.name}{t(":", "：")}
+                <a href={experience.project.href}>{t("Project page", "项目主页")}</a> ·
+                <a href={experience.project.paperHref}>{t("Whitepaper", "白皮书")}</a>
+                · {t("Announced at CoRL 2026", "CoRL 2026 发布")}
+              </p>
+            )}
           </article>
         ))}
       </section>

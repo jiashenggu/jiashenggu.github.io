@@ -22,7 +22,7 @@ export const workExperienceZh = [
     organization: "英伟达",
     location: "中国上海 · 现场办公",
     period: "2025年9月—至今",
-    detail: "生成式机器人策略：GRPO、在线与离线 DAgger，以及真机适配。",
+    detail: "面向 NVIDIA GR00T 2 的生成式机器人策略：GRPO、在线与离线 DAgger，以及真机适配。",
     highlights: [
       {
         id: "grpo",

@@ -1,6 +1,6 @@
 @page {
   size: A4;
-  margin: 13mm 15mm;
+  margin: 11mm 14mm;
 }
 
 .resume-shell {
@@ -152,6 +152,18 @@
   break-inside: avoid;
 }
 
+.resume-project-links {
+  margin: 6px 0 0;
+  color: #414b56;
+  font-size: 0.875em;
+}
+
+.resume-project-links a {
+  text-decoration: underline;
+  text-decoration-color: #b9c0c8;
+  text-underline-offset: 2px;
+}
+
 .resume-publication,
 .resume-education {
   break-inside: avoid;
@@ -211,12 +223,16 @@
   }
 
   .resume-sheet section {
-    margin-top: 10px;
+    margin-top: 9px;
   }
 
   .resume-sheet h2 {
-    margin-bottom: 6px;
+    margin-bottom: 5px;
     padding-bottom: 3px;
+  }
+
+  .resume-project-links {
+    margin-top: 4px;
   }
 
   .resume-job + .resume-job {

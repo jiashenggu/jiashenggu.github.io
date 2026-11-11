@@ -96,6 +96,12 @@ const workDiagrams = { grpo: GrpoDiagram, dagger: DaggerDiagram, robots: RobotAd
           <span>{currentExperience.period}</span>
         </div>
         <p class="current-work-description">{currentExperience.detail}</p>
+        <p class="current-work-project">
+          <span>{t("Project", "所属项目")}</span>
+          <a href={currentExperience.project.href} target="_blank" rel={externalRel}>{currentExperience.project.name} <span class="external-mark" aria-hidden="true">↗</span></a>
+          <a href={currentExperience.project.paperHref} target="_blank" rel={externalRel}>{t("Whitepaper", "白皮书")} <span class="external-mark" aria-hidden="true">↗</span></a>
+          <span>{t("Announced at CoRL 2026", "CoRL 2026 发布")}</span>
+        </p>
         <div class="work-visual-grid">
           {currentExperience.highlights.map((highlight) => {
             const Diagram = workDiagrams[highlight.id];

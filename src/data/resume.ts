@@ -18,7 +18,12 @@ export const workExperience = [
     href: "https://www.nvidia.com/",
     location: "Shanghai, China · On-site",
     period: "Sep. 2025 - Present",
-    detail: "Generative robot policies: GRPO, online/offline DAgger and real-robot adaptation.",
+    detail: "Generative robot policies for NVIDIA GR00T 2: GRPO, online/offline DAgger and real-robot adaptation.",
+    project: {
+      name: "GR00T 2",
+      href: "https://research.nvidia.com/labs/gear/gr00t-2/",
+      paperHref: "https://research.nvidia.com/labs/gear/gr00t-2/assets/gr00t2_whitepaper.pdf",
+    },
     highlights: [
       {
         id: "grpo",

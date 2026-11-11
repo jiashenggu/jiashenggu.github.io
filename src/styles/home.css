@@ -229,6 +229,21 @@
   font-size: 12px;
 }
 
+.current-work-project {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin: -4px 0 16px;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 12px;
+}
+
+.current-work-project a {
+  font-weight: 500;
+  text-decoration: none;
+}
+
 .previous-experience {
   margin: 28px 0 0;
   padding-top: 16px;

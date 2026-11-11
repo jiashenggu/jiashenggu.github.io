@@ -7,7 +7,7 @@ export function getPublications(language: Language) {
       id: "dreamzero",
       shortTitle: "DreamZero",
       title: "World Action Models are Zero-shot Policies",
-      metadata: t("2026 · arXiv · Co-author · NVIDIA GEAR", "2026 · arXiv · 共同作者 · NVIDIA GEAR"),
+      metadata: t("CoRL 2026 · Co-author · NVIDIA GEAR", "CoRL 2026 · 共同作者 · NVIDIA GEAR"),
       description: t(
         "DreamZero is a 14B world action model built on a pretrained video diffusion backbone.",
         "DreamZero 是一个基于预训练视频扩散骨干构建的世界动作模型，拥有 140 亿参数。",
