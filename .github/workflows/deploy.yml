@@ -21,12 +21,26 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
+      # The runner image already has Chromium's shared libraries; the résumé PDFs
+      # only need a CJK font. Fetch it from GitHub instead of apt, whose mirrors
+      # have been unreachable from the runners.
+      - name: Install CJK font for PDF export
+        run: |
+          mkdir -p ~/.local/share/fonts
+          for weight in Regular Medium Bold; do
+            curl -fsSL --retry 3 --retry-delay 10 \
+              -o ~/.local/share/fonts/NotoSansCJKsc-$weight.otf \
+              "https://github.com/notofonts/noto-cjk/raw/Sans2.004/Sans/OTF/SimplifiedChinese/NotoSansCJKsc-$weight.otf"
+          done
+          fc-cache -f
+          fc-list | grep -c "Noto Sans CJK SC"
+
       - name: Install, check, build, and upload Astro site
         uses: withastro/action@v6
         with:
           node-version: 22
           package-manager: npm
-          build-cmd: (npm run setup:pdf -- --with-deps || (sleep 30 && npm run setup:pdf -- --with-deps)) && npm run check && npm run build
+          build-cmd: npm run setup:pdf && npm run check && npm run build
 
   deploy:
     needs: build

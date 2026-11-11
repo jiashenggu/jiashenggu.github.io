@@ -57,7 +57,9 @@ npm audit --audit-level=moderate
 
 `npm run build` writes the static site to `dist/` and generates both résumé PDFs
 from the built résumé pages. `npm run setup:pdf` installs the browser once;
-on Linux, add `-- --with-deps` if its system libraries are missing.
+on Linux, add `-- --with-deps` if its system libraries are missing. The Chinese
+PDF needs a CJK system font; the deploy workflow downloads Noto Sans CJK SC
+from GitHub rather than relying on apt.
 Use `npm run preview` after building to check the PDF download links.
 
 ## Content Updates
