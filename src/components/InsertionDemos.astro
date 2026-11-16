@@ -1,0 +1,246 @@
+---
+import { translateFor, type Language } from "../data/i18n";
+
+interface Props {
+  lang?: Language;
+}
+
+const t = translateFor(Astro.props.lang ?? "en");
+const project = "https://research.nvidia.com/labs/gear/gr00t-2/";
+const tasks = [
+  {
+    id: "cable-insertion",
+    title: t("Cable insertion", "线缆插入"),
+    video: "rl_cable",
+    results: [76, 92, 94],
+    extendedVideo: "agentic_five_cables",
+    extendedLabel: t("Five-cable sequence", "连续插入五根线缆"),
+    extendedDescription: t("Insert five Ethernet cables into a network switch in sequence.", "依次将五根以太网线缆插入交换机。"),
+    extendedResults: [12, 19],
+  },
+  {
+    id: "charger-insertion",
+    title: t("Charger insertion", "充电器插入"),
+    video: "rl_charger",
+    results: [40, 94, 96],
+    extendedVideo: "agentic_five_chargers",
+    extendedLabel: t("Five-charger sequence", "连续插入五个充电器"),
+    extendedDescription: t("Plug five chargers into the outlets a person points at, in order.", "按照人指示的顺序，将五个充电器插入对应插座。"),
+    extendedResults: [2, 20],
+  },
+];
+const methods = ["SFT", "GRPO", t("+ self-imitation", "+ 自模仿")];
+const agenticMethods = [t("Without RL", "未使用 RL"), t("With RL", "使用 RL")];
+---
+
+<section id="insertion-demos" class="insertion-demos" aria-labelledby="insertion-demos-title">
+  <h3 id="insertion-demos-title">{t("Real-world reinforcement learning", "真机强化学习")}</h3>
+  <p class="contribution">
+    {t(
+      "I trained the models for both insertion tasks and helped film the demos featured on the GR00T 2 project page.",
+      "我负责这两个插入任务的模型训练，并参与了 GR00T 2 项目主页所展示 demo 的拍摄。",
+    )}
+  </p>
+  <div class="demo-grid">
+    {tasks.map((task) => (
+      <figure id={task.id} class="demo">
+        <video
+          controls
+          muted
+          playsinline
+          preload="none"
+          width="1280"
+          height="720"
+          poster={`${project}assets/poster/${task.video}.jpg`}
+          aria-label={t(`${task.title} — real-robot demo`, `${task.title}——真机演示`)}
+        >
+          <source src={`${project}assets/video/${task.video}.mp4`} type="video/mp4" />
+          <a href={`${project}assets/video/${task.video}.mp4`}>{t("Watch demo", "观看演示")}</a>
+        </video>
+        <figcaption>
+          <h4>{task.title}</h4>
+          <p class="metric-label">{t("Task success rate", "任务成功率")}</p>
+          <dl class="results">
+            {task.results.map((rate, index) => (
+              <div>
+                <dt>{methods[index]}</dt>
+                <dd>{rate}<span>%</span></dd>
+              </div>
+            ))}
+          </dl>
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+  <p class="source-note">
+    {t("Videos and results:", "视频与结果来源：")}{" "}
+    <a href={`${project}#rl`} target="_blank" rel="noopener noreferrer">NVIDIA GR00T 2</a>.
+    {" "}{t(
+      "SFT → GRPO → GRPO-induced self-imitation.",
+      "SFT → GRPO → GRPO 诱导的自模仿。",
+    )}
+  </p>
+</section>
+
+<section id="agentic-demos" class="insertion-demos" aria-labelledby="agentic-demos-title">
+  <h3 id="agentic-demos-title">{t("Agentic control: from skills to long-horizon tasks", "Agentic control：从单项技能到长程任务")}</h3>
+  <p class="contribution">
+    {t(
+      "The RL-trained insertion policies also power these multi-step demos. CaP localizes, grasps and positions each part; GR00T 2 performs the precision-critical insertion; the agent sequences the steps, verifies success and calls recovery when needed.",
+      "经过 RL 训练的插入策略也用于以下多步演示：CaP 负责定位、抓取与放置，GR00T 2 执行精密插入，智能体负责步骤编排、成功验证，并在需要时调用恢复流程。",
+    )}
+  </p>
+  <div class="demo-grid">
+    {tasks.map((task) => (
+      <figure id={`agentic-${task.id}`} class="demo">
+        <video
+          controls
+          muted
+          playsinline
+          preload="none"
+          width="1280"
+          height="720"
+          poster={`${project}assets/poster/${task.extendedVideo}.jpg`}
+          aria-label={t(`${task.extendedLabel} — agentic demo`, `${task.extendedLabel}——智能体演示`)}
+        >
+          <source src={`${project}assets/video/${task.extendedVideo}.mp4`} type="video/mp4" />
+          <a href={`${project}assets/video/${task.extendedVideo}.mp4`}>{t("Watch demo", "观看演示")}</a>
+        </video>
+        <figcaption>
+          <h4>{task.extendedLabel}</h4>
+          <p class="task-description">{task.extendedDescription}</p>
+          <p class="metric-label">{t("Successful full-task runs · 20 trials", "完整任务成功次数 · 共 20 次试验")}</p>
+          <dl class="results agentic-results">
+            {task.extendedResults.map((count, index) => (
+              <div>
+                <dt>{agenticMethods[index]}</dt>
+                <dd>{count}<span>/ 20</span></dd>
+              </div>
+            ))}
+          </dl>
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+  <p class="source-note">
+    {t("Videos and full-task results:", "视频与完整任务结果来源：")}{" "}
+    <a href={`${project}#agentic-control`} target="_blank" rel="noopener noreferrer">NVIDIA GR00T 2</a>.
+  </p>
+</section>
+
+<style>
+  .insertion-demos {
+    margin-top: 28px;
+  }
+
+  h3 {
+    margin: 0 0 8px;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.015em;
+  }
+
+  .contribution {
+    max-width: 62ch;
+    margin-bottom: 20px;
+    color: var(--body-ink);
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .demo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: 24px;
+  }
+
+  .demo {
+    min-width: 0;
+    margin: 0;
+  }
+
+  video {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    background: #111;
+  }
+
+  video:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  h4 {
+    margin: 12px 0 10px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .metric-label,
+  .source-note {
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 11px;
+    line-height: 1.7;
+  }
+
+  .metric-label {
+    margin-bottom: 6px;
+  }
+
+  .results {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.5fr;
+    gap: 10px;
+    margin: 0;
+    padding: 10px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  dt {
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 10px;
+    line-height: 1.6;
+  }
+
+  dd {
+    margin: 4px 0 0;
+    font-size: 26px;
+    line-height: 1.2;
+    font-variant-numeric: tabular-nums;
+  }
+
+  dd span {
+    margin-left: 2px;
+    font-size: 15px;
+  }
+
+  .results > div:last-child dd {
+    color: var(--green);
+    font-weight: 600;
+  }
+
+  .agentic-results {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .task-description {
+    min-height: 2lh;
+    margin-bottom: 12px;
+    color: var(--body-ink);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .source-note {
+    margin: 12px 0 0;
+  }
+</style>

@@ -4,6 +4,7 @@ import GrpoDiagram from "./GrpoDiagram.astro";
 import DaggerDiagram from "./DaggerDiagram.astro";
 import RobotAdapters from "./RobotAdapters.astro";
 import WamComparison from "./WamComparison.astro";
+import InsertionDemos from "./InsertionDemos.astro";
 import { profile } from "../data/profile";
 import { education, workExperience } from "../data/resume";
 import { educationZh, workExperienceZh } from "../data/resume-zh";
@@ -89,19 +90,24 @@ const workDiagrams = { grpo: GrpoDiagram, dagger: DaggerDiagram, robots: RobotAd
     </aside>
 
     <div class="research-work">
-      <section id="experience" aria-labelledby="experience-title">
-        <h2 id="experience-title" class="section-label">{t("Current work", "当前工作")}</h2>
+      <section id="experience" aria-labelledby="gr00t2-title">
+        <p id="experience-title" class="section-label">{t("Current work", "当前工作")}</p>
         <div class="current-work-context">
           <a href={currentExperience.href} target="_blank" rel={externalRel}>{currentExperience.organization} GEAR</a>
           <span>{currentExperience.period}</span>
         </div>
+        <div id="gr00t2">
+          <p class="entry-meta">{gr00t2.metadata}</p>
+          <h2 id="gr00t2-title" class="project-title">{gr00t2.shortTitle}</h2>
+          <p class="paper-title">{gr00t2.title}</p>
+        </div>
         <p class="current-work-description">{currentExperience.detail}</p>
         <p class="current-work-project">
-          <span>{t("Project", "所属项目")}</span>
-          <a href={currentExperience.project.href} target="_blank" rel={externalRel}>{currentExperience.project.name} <span class="external-mark" aria-hidden="true">↗</span></a>
+          <a href={currentExperience.project.href} target="_blank" rel={externalRel}>{t("Project", "项目主页")} <span class="external-mark" aria-hidden="true">↗</span></a>
           <a href={currentExperience.project.paperHref} target="_blank" rel={externalRel}>{t("Whitepaper", "白皮书")} <span class="external-mark" aria-hidden="true">↗</span></a>
           <span>{t("Announced at CoRL 2026", "CoRL 2026 发布")}</span>
         </p>
+        <InsertionDemos lang={lang} />
         <div class="work-visual-grid">
           {currentExperience.highlights.map((highlight) => {
             const Diagram = workDiagrams[highlight.id];
@@ -162,21 +168,7 @@ const workDiagrams = { grpo: GrpoDiagram, dagger: DaggerDiagram, robots: RobotAd
       </section>
 
       <section id="research" aria-labelledby="publications">
-        <h2 id="publications" class="section-label">{t("Selected publications", "代表论文")}</h2>
-
-        <article id="gr00t2" class="research-entry" aria-labelledby="gr00t2-title">
-          <p class="entry-meta">{gr00t2.metadata}</p>
-          <h3 id="gr00t2-title" class="project-title">{gr00t2.shortTitle}</h3>
-          <p class="paper-title">{gr00t2.title}</p>
-          <p class="research-description">
-            {gr00t2.description}
-          </p>
-          <div class="research-links">
-            {[gr00t2.project, gr00t2.paper].map((link) => (
-              <a href={link.href} target="_blank" rel={externalRel}>{link.label}</a>
-            ))}
-          </div>
-        </article>
+        <h2 id="publications" class="section-label">{t("Other selected publications", "其他代表论文")}</h2>
 
         <article id="dreamzero" class="research-entry" aria-labelledby="dreamzero-title">
           <p class="entry-meta">{dreamzero.metadata}</p>
