@@ -43,6 +43,7 @@ const otherLanguage = lang === "zh" ? "en" : "zh";
         <p class="resume-headline">{pageExperience[0].role} · {pageExperience[0].organization} GEAR</p>
         <div class="resume-contact">
           <a href={`mailto:${profile.email}`}>{profile.email}</a>
+          <a href={`tel:+86${profile.phone}`}>{profile.phone}</a>
           <a href={profile.siteUrl + homePath}>{new URL(profile.siteUrl).host}{lang === "zh" && "/zh/"}</a>
           <a href={profile.sameAs[0]}>{t("Google Scholar", "Google 学术")}</a>
           <a href={profile.sameAs[1]}>GitHub</a>

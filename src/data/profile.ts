@@ -11,6 +11,7 @@ export const profile = {
     "Jiasheng Gu, NVIDIA GEAR Research Engineer, works on generative robot policies and post-training, with a background in multimodal generation and understanding.",
   location: "Shanghai",
   email: "jiashengguwen@gmail.com",
+  phone: "17701621592",
   siteUrl: "https://jiashenggu.github.io",
   repository: "jiashenggu/jiashenggu.github.io",
   scholarStatsUrl:
